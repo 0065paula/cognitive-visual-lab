@@ -1,0 +1,410 @@
+/* === NATURALIST ILLUSTRATION STYLE === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --paper: #F7F3EB;
+  --paper-dark: #EDE8DC;
+  --ink: #2C2416;
+  --ink-light: #5C4F3D;
+  --ink-faint: #9A8B7A;
+  --accent: #4A6741;
+  --accent-warm: #8B4513;
+  --accent-muted: #6B8E6B;
+  --border: #C4B8A8;
+  --border-light: #DDD5C8;
+  --font-serif: "Georgia", "Times New Roman", "Songti SC", "SimSun", serif;
+  --font-sans: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "Courier New", "SimSun", monospace;
+}
+
+@page { size: A4 landscape; margin: 0; }
+
+body {
+  font-family: var(--font-serif);
+  background: #d4cfc5;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  color: var(--ink);
+}
+
+.poster {
+  width: 297mm;
+  height: 210mm;
+  background: var(--paper);
+  padding: 16mm 20mm;
+  position: relative;
+  box-shadow: 0 4px 30px rgba(44, 36, 22, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+/* === ORNATE BORDER === */
+.poster::before {
+  content: '';
+  position: absolute;
+  top: 8mm; left: 8mm; right: 8mm; bottom: 8mm;
+  border: 1.5px solid var(--border);
+  pointer-events: none;
+}
+
+.poster::after {
+  content: '';
+  position: absolute;
+  top: 10mm; left: 10mm; right: 10mm; bottom: 10mm;
+  border: 0.5px solid var(--border-light);
+  pointer-events: none;
+}
+
+/* === CORNER ORNAMENTS === */
+.corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.corner-tl { top: 6mm; left: 6mm; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.corner-tr { top: 6mm; right: 6mm; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+.corner-bl { bottom: 6mm; left: 6mm; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.corner-br { bottom: 6mm; right: 6mm; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+
+/* === HEADER === */
+.header {
+  text-align: center;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.header::after {
+  content: '❧';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  padding: 0 12px;
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.series-label {
+  font-family: var(--font-mono);
+  font-size: 7pt;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: 26pt;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.title-en {
+  display: block;
+  font-size: 11pt;
+  font-weight: 400;
+  color: var(--ink-faint);
+  font-style: italic;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+.subtitle {
+  font-size: 9pt;
+  color: var(--ink-light);
+  margin-top: 6px;
+  font-family: var(--font-sans);
+}
+
+/* === LANGUAGE TOGGLE === */
+.lang-toggle {
+  position: absolute;
+  top: 12mm;
+  right: 14mm;
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+}
+
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: 7pt;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.lang-btn:hover:not(.active) {
+  background: var(--paper-dark);
+}
+
+/* === BILINGUAL CONTENT === */
+[data-lang] { display: none; }
+[data-lang="zh"] { display: block; }
+body.lang-en [data-lang="zh"] { display: none; }
+body.lang-en [data-lang="en"] { display: block; }
+
+/* === MAIN CONTENT === */
+.main {
+  flex: 1;
+  display: flex;
+  gap: 14mm;
+  margin-top: 8px;
+  min-height: 0;
+}
+
+.left-col {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.right-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* === ILLUSTRATION PANEL === */
+.illustration {
+  background: var(--paper-dark);
+  border: 1px solid var(--border);
+  padding: 12px;
+  position: relative;
+}
+
+.illustration-label {
+  font-family: var(--font-mono);
+  font-size: 6.5pt;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 4px;
+}
+
+/* === BOTANICAL CHART === */
+.botanical-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 8px 4px;
+  height: 70px;
+}
+
+.botanical-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.botanical-stem {
+  width: 2px;
+  background: var(--accent);
+  position: relative;
+}
+
+.botanical-stem::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.botanical-label {
+  font-size: 7pt;
+  color: var(--ink-light);
+  text-align: center;
+  font-family: var(--font-sans);
+}
+
+.botanical-value {
+  font-family: var(--font-mono);
+  font-size: 8pt;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* === SPECIMEN CARD === */
+.specimen {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  position: relative;
+}
+
+.specimen::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border: 0.5px dashed var(--border-light);
+  pointer-events: none;
+}
+
+.specimen-title {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.specimen-title .latin {
+  font-family: var(--font-mono);
+  font-size: 8pt;
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.specimen-body {
+  font-size: 8.5pt;
+  line-height: 1.6;
+  color: var(--ink-light);
+  font-family: var(--font-sans);
+}
+
+.specimen-body strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* === FIELD NOTES === */
+.field-notes {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+}
+
+.field-notes .notes-header {
+  font-family: var(--font-mono);
+  font-size: 7pt;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 4px;
+}
+
+/* === OBSERVATION LIST === */
+.observation {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px dotted var(--border-light);
+}
+
+.observation:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.observation-num {
+  font-family: var(--font-mono);
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--accent-warm);
+  min-width: 16px;
+}
+
+.observation-text {
+  font-size: 8pt;
+  line-height: 1.45;
+  color: var(--ink-light);
+  font-family: var(--font-sans);
+}
+
+/* === QUOTE (VINTAGE) === */
+.vintage-quote {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 14px 18px;
+  font-size: 10pt;
+  line-height: 1.5;
+  font-style: italic;
+  position: relative;
+  margin: 10px 0;
+}
+
+.vintage-quote::before {
+  content: '"';
+  font-size: 24pt;
+  line-height: 1;
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  color: var(--accent-muted);
+  font-family: Georgia, serif;
+}
+
+.vintage-quote .attribution {
+  font-style: normal;
+  font-size: 7.5pt;
+  color: var(--ink-faint);
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+  font-family: var(--font-sans);
+}
+
+/* === FOOTER === */
+.footer {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.footer-left {
+  font-style: italic;
+  font-size: 7.5pt;
+  color: var(--ink-faint);
+}
+
+.footer-right {
+  font-family: var(--font-mono);
+  font-size: 7pt;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+/* === PRINT === */
+@media print {
+  body { background: white; padding: 0; }
+  .poster { box-shadow: none; }
+  .lang-toggle { display: none; }
+}

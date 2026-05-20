@@ -6,199 +6,381 @@
 <title>Cognitive Visual Lab — 认知科学视觉化</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
-  --bg: #FAFAF8;
-  --ink: #1A1A1A;
-  --ink-2: #444;
-  --ink-3: #888;
-  --accent: #ff6b35;
-  --accent-light: #FFF5F0;
-  --grid: #F0F0F0;
-  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --paper: #F7F3EB;
+  --paper-dark: #EDE8DC;
+  --ink: #2C2416;
+  --ink-light: #5C4F3D;
+  --ink-faint: #9A8B7A;
+  --accent: #4A6741;
+  --accent-warm: #8B4513;
+  --border: #C4B8A8;
+  --border-light: #DDD5C8;
+  --font-serif: "Georgia", "Times New Roman", "Songti SC", "SimSun", serif;
+  --font-sans: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "Courier New", monospace;
 }
+
 body {
-  font-family: var(--font);
-  background: var(--bg);
+  font-family: var(--font-serif);
+  background: #d4cfc5;
   color: var(--ink);
   line-height: 1.6;
 }
+
 .container {
   max-width: 960px;
   margin: 0 auto;
   padding: 48px 24px;
 }
+
+/* === ORNATE HEADER === */
 header {
   text-align: center;
-  margin-bottom: 64px;
-  padding-bottom: 32px;
-  border-bottom: 2px solid var(--ink);
+  margin-bottom: 48px;
+  padding: 32px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  position: relative;
 }
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 6px; left: 6px; right: 6px; bottom: 6px;
+  border: 1px solid var(--border-light);
+  pointer-events: none;
+}
+
+.header-ornament {
+  font-size: 24px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
 .badge {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--accent);
-  border: 1px solid var(--accent);
-  padding: 4px 12px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
+
 h1 {
-  font-size: 42px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 8px;
-}
-.subtitle {
-  font-size: 18px;
-  color: var(--ink-3);
+  font-size: 36px;
   font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  margin-bottom: 6px;
 }
-.tagline {
+
+.subtitle {
   font-size: 14px;
-  color: var(--ink-2);
-  margin-top: 16px;
+  color: var(--ink-faint);
   font-style: italic;
 }
+
+.tagline {
+  font-size: 12px;
+  color: var(--ink-light);
+  margin-top: 12px;
+  font-family: var(--font-sans);
+}
+
+/* === LANGUAGE TOGGLE === */
+.lang-bar {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn:first-child { border-radius: 4px 0 0 4px; }
+.lang-btn:last-child { border-radius: 0 4px 4px 0; }
+
+.lang-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.lang-btn:hover:not(.active) {
+  background: var(--paper-dark);
+}
+
+/* === BILINGUAL === */
+[data-lang] { display: none; }
+[data-lang="zh"] { display: block; }
+body.lang-en [data-lang="zh"] { display: none; }
+body.lang-en [data-lang="en"] { display: block; }
+
+/* === PRODUCTS === */
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
 }
+
 .product-card {
-  background: white;
-  border: 1px solid var(--grid);
-  border-radius: 8px;
+  background: var(--paper);
+  border: 1px solid var(--border);
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
 }
+
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(44, 36, 22, 0.1);
 }
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border: 0.5px dashed var(--border-light);
+  pointer-events: none;
+}
+
 .product-preview {
-  height: 200px;
-  background: var(--accent-light);
+  height: 180px;
+  background: var(--paper-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 48px;
-  color: var(--accent);
+  border-bottom: 1px solid var(--border);
 }
+
 .product-info {
   padding: 20px;
 }
+
 .product-num {
-  font-size: 12px;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--accent);
-  letter-spacing: 0.1em;
-  margin-bottom: 4px;
-}
-.product-title {
-  font-size: 18px;
-  font-weight: 700;
   margin-bottom: 6px;
 }
-.product-desc {
-  font-size: 13px;
-  color: var(--ink-2);
-  margin-bottom: 16px;
+
+.product-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
 }
+
+.product-title-en {
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.product-desc {
+  font-size: 12px;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
 .product-actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
+
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 13px;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 2px;
+  font-size: 11px;
   font-weight: 600;
   text-decoration: none;
+  font-family: var(--font-sans);
   transition: all 0.2s;
+  cursor: pointer;
+  border: none;
 }
+
 .btn-primary {
   background: var(--accent);
   color: white;
 }
-.btn-primary:hover {
-  background: #e55a2a;
-}
+
+.btn-primary:hover { background: #3d5636; }
+
 .btn-secondary {
-  background: var(--bg);
-  color: var(--ink-2);
-  border: 1px solid var(--grid);
+  background: transparent;
+  color: var(--ink-light);
+  border: 1px solid var(--border);
 }
-.btn-secondary:hover {
-  background: var(--grid);
+
+.btn-secondary:hover { background: var(--paper-dark); }
+
+.badge-free {
+  display: inline-block;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: var(--accent-warm);
+  border: 1px solid var(--accent-warm);
+  padding: 2px 6px;
+  margin-left: auto;
 }
+
+/* === COMING SOON === */
+.coming-soon {
+  opacity: 0.5;
+}
+
+.coming-soon .product-preview {
+  background: #e8e4dc;
+  color: var(--ink-faint);
+}
+
+/* === FOOTER === */
 footer {
   text-align: center;
-  margin-top: 64px;
-  padding-top: 32px;
-  border-top: 1px solid var(--grid);
-  color: var(--ink-3);
-  font-size: 13px;
+  margin-top: 48px;
+  padding: 24px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  color: var(--ink-faint);
+  font-size: 12px;
+}
+
+footer .ornament {
+  font-size: 18px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+/* === MOBILE === */
+@media (max-width: 640px) {
+  .container { padding: 24px 16px; }
+  h1 { font-size: 28px; }
+  .products { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 <div class="container">
+
   <header>
+    <div class="header-ornament">❦</div>
     <div class="badge">Cognitive Science Visualized</div>
-    <h1>Cognitive Visual Lab</h1>
-    <p class="subtitle">把复杂的认知科学，变成一看就懂的视觉语言</p>
-    <p class="tagline">可打印信息图 · 学习海报 · 知识卡片</p>
+    <h1>
+      <span data-lang="zh">Cognitive Visual Lab</span>
+      <span data-lang="en">Cognitive Visual Lab</span>
+    </h1>
+    <p class="subtitle" data-lang="zh">把复杂的认知科学，变成一看就懂的视觉语言</p>
+    <p class="subtitle" data-lang="en">Transforming complex cognitive science into visual language</p>
+    <p class="tagline" data-lang="zh">可打印信息图 · 学习海报 · 知识卡片</p>
+    <p class="tagline" data-lang="en">Printable Infographics · Study Posters · Knowledge Cards</p>
   </header>
+
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('zh')" data-lang-btn="zh">中文</button>
+    <button class="lang-btn" onclick="setLang('en')" data-lang-btn="en">English</button>
+  </div>
 
   <section class="products">
     <article class="product-card">
       <div class="product-preview">⚡</div>
       <div class="product-info">
         <div class="product-num">PRODUCT 01</div>
-        <h2 class="product-title">工作记忆就像 CPU 缓存</h2>
-        <p class="product-desc">一个理解大脑如何学习的极简模型。用程序员熟悉的缓存类比，解释为什么我们会走神、为什么多任务切换代价极高。</p>
+        <h2 class="product-title" data-lang="zh">工作记忆就像 CPU 缓存</h2>
+        <h2 class="product-title" data-lang="en">Working Memory as CPU Cache</h2>
+        <p class="product-title-en" data-lang="zh">Working Memory as CPU Cache</p>
+        <p class="product-title-en" data-lang="en">工作记忆就像 CPU 缓存</p>
+        <p class="product-desc" data-lang="zh">用程序员熟悉的缓存类比，解释大脑信息处理的瓶颈与优化策略。</p>
+        <p class="product-desc" data-lang="en">An analogy familiar to programmers, explaining the bottleneck and optimization of brain information processing.</p>
         <div class="product-actions">
-          <a href="products/01-working-memory/index.html" class="btn btn-primary">👁️ 预览</a>
-          <a href="products/01-working-memory/poster.pdf" class="btn btn-secondary">📄 PDF</a>
+          <a href="products/01-working-memory/index.html" class="btn btn-primary" data-lang="zh">👁️ 预览</a>
+          <a href="products/01-working-memory/index.html" class="btn btn-primary" data-lang="en">👁️ Preview</a>
+          <a href="products/01-working-memory/poster.pdf" class="btn btn-secondary" data-lang="zh">📄 PDF</a>
+          <a href="products/01-working-memory/poster.pdf" class="btn btn-secondary" data-lang="en">📄 PDF</a>
+          <a href="products/01-working-memory/poster-mobile.png" class="btn btn-secondary" data-lang="zh">📱 手机版</a>
+          <a href="products/01-working-memory/poster-mobile.png" class="btn btn-secondary" data-lang="en">📱 Mobile</a>
+          <span class="badge-free" data-lang="zh">免费</span>
+          <span class="badge-free" data-lang="en">FREE</span>
         </div>
       </div>
     </article>
 
-    <article class="product-card" style="opacity: 0.6;">
-      <div class="product-preview" style="background: #f5f5f5; color: #ccc;">⏱️</div>
+    <article class="product-card coming-soon">
+      <div class="product-preview">⏱️</div>
       <div class="product-info">
         <div class="product-num">PRODUCT 02</div>
-        <h2 class="product-title">间隔重复</h2>
-        <p class="product-desc">对抗遗忘的唯一科学策略。艾宾浩斯曲线可视化 + 实用工具推荐。</p>
+        <h2 class="product-title" data-lang="zh">间隔重复</h2>
+        <h2 class="product-title" data-lang="en">Spaced Repetition</h2>
+        <p class="product-title-en" data-lang="zh">Spaced Repetition</p>
+        <p class="product-title-en" data-lang="en">间隔重复</p>
+        <p class="product-desc" data-lang="zh">对抗遗忘的唯一科学策略。艾宾浩斯曲线可视化。</p>
+        <p class="product-desc" data-lang="en">The only scientifically proven strategy against forgetting. Ebbinghaus curve visualization.</p>
         <div class="product-actions">
-          <span class="btn btn-secondary" style="opacity: 0.5; cursor: not-allowed;">即将推出</span>
+          <span class="btn btn-secondary" style="opacity: 0.5; cursor: not-allowed;" data-lang="zh">即将推出</span>
+          <span class="btn btn-secondary" style="opacity: 0.5; cursor: not-allowed;" data-lang="en">Coming Soon</span>
         </div>
       </div>
     </article>
 
-    <article class="product-card" style="opacity: 0.6;">
-      <div class="product-preview" style="background: #f5f5f5; color: #ccc;">🧩</div>
+    <article class="product-card coming-soon">
+      <div class="product-preview">🧩</div>
       <div class="product-info">
         <div class="product-num">PRODUCT 03</div>
-        <h2 class="product-title">组块化</h2>
-        <p class="product-desc">专家与新手的差距，本质是组块的大小。如何把零散信息压缩成大脑友好的单元。</p>
+        <h2 class="product-title" data-lang="zh">组块化</h2>
+        <h2 class="product-title" data-lang="en">Chunking</h2>
+        <p class="product-title-en" data-lang="zh">Chunking</p>
+        <p class="product-title-en" data-lang="en">组块化</p>
+        <p class="product-desc" data-lang="zh">专家与新手的差距，本质是组块的大小。</p>
+        <p class="product-desc" data-lang="en">The gap between experts and novices is essentially the size of chunks.</p>
         <div class="product-actions">
-          <span class="btn btn-secondary" style="opacity: 0.5; cursor: not-allowed;">即将推出</span>
+          <span class="btn btn-secondary" style="opacity: 0.5; cursor: not-allowed;" data-lang="zh">即将推出</span>
+          <span class="btn btn-secondary" style="opacity: 0.5; cursor: not-allowed;" data-lang="en">Coming Soon</span>
         </div>
       </div>
     </article>
   </section>
 
   <footer>
-    <p>© Cognitive Visual Lab · 用 AI 重构知识传播</p>
-    <p style="margin-top: 8px; font-size: 12px;">Built by @kimi & @kimi-mini for Paula</p>
+    <div class="ornament">❧</div>
+    <p data-lang="zh">© Cognitive Visual Lab · 用 AI 重构知识传播</p>
+    <p data-lang="en">© Cognitive Visual Lab · Reimagining Knowledge with AI</p>
+    <p style="margin-top: 6px; font-size: 11px;" data-lang="zh">Built by @kimi & @kimi-mini for Paula</p>
+    <p style="margin-top: 6px; font-size: 11px;" data-lang="en">Built by @kimi & @kimi-mini for Paula</p>
   </footer>
+
 </div>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.langBtn === lang);
+  });
+  localStorage.setItem('cvl-lang', lang);
+}
+
+// Restore saved language
+const saved = localStorage.getItem('cvl-lang');
+if (saved) setLang(saved);
+</script>
 </body>
 </html>
