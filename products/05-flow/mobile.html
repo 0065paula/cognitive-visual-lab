@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 05 · 心流 | Flow</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #f7f3eb;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --gold: #8B4513;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+  body {
+    font-family: "Noto Serif SC", Georgia, serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    padding: 20px 16px;
+    line-height: 1.6;
+  }
+  .header {
+    text-align: center;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .series-label {
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 8px;
+  }
+  h1 { font-size: 22px; font-weight: 400; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--sepia-light); font-style: italic; }
+
+  .section { margin-bottom: 24px; }
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bronze);
+    margin-bottom: 12px;
+    border-left: 3px solid var(--bronze);
+    padding-left: 8px;
+  }
+
+  .flow-diagram {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 12px;
+    margin-bottom: 12px;
+    position: relative;
+    height: 140px;
+  }
+  .flow-zone {
+    position: absolute;
+    border-radius: 2px;
+    font-size: 10px;
+    padding: 4px 6px;
+    text-align: center;
+  }
+  .zone-flow {
+    top: 20px; left: 40%; right: 20px; bottom: 40px;
+    background: rgba(74, 103, 65, 0.12);
+    border: 1px dashed var(--bronze);
+    color: var(--bronze);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .zone-anxiety {
+    top: 10px; left: 50%; right: 10px; height: 30px;
+    background: rgba(139, 69, 19, 0.1);
+    border: 0.5px dashed var(--gold);
+    color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .zone-boredom {
+    bottom: 10px; left: 35%; right: 30%; height: 25px;
+    background: rgba(156, 139, 122, 0.12);
+    border: 0.5px dashed var(--bronze-light);
+    color: var(--bronze-light);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .zone-apathy {
+    bottom: 10px; left: 10px; right: 55%; height: 25px;
+    background: rgba(196, 184, 168, 0.15);
+    border: 0.5px dashed var(--rule);
+    color: var(--sepia-light);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .axis-x {
+    position: absolute;
+    bottom: 0; left: 10px; right: 10px;
+    height: 1px; background: var(--rule);
+  }
+  .axis-y {
+    position: absolute;
+    left: 10px; top: 10px; bottom: 0;
+    width: 1px; background: var(--rule);
+  }
+  .axis-label {
+    position: absolute;
+    font-size: 9px;
+    color: var(--sepia-light);
+  }
+
+  .obs-item, .method-item {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .obs-num, .method-num {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .item-text { font-size: 13px; color: var(--sepia-light); line-height: 1.5; }
+  .item-text strong { color: var(--sepia); }
+
+  .references {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    font-size: 11px;
+    color: var(--sepia-light);
+    line-height: 1.5;
+  }
+  .references strong { color: var(--bronze); }
+
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 11px;
+    color: var(--bronze-light);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="series-label">Cognitive Visual Lab · Plate 05</div>
+    <h1>心流：最佳体验的科学</h1>
+    <p class="subtitle">当挑战与技能完美匹配时，时间消失，自我消融</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">心流通道</div>
+    <div class="flow-diagram">
+      <div class="axis-y"></div>
+      <div class="axis-x"></div>
+      <span class="axis-label" style="bottom:-14px;right:10px;">挑战程度 →</span>
+      <span class="axis-label" style="top:0;left:-2px;writing-mode:vertical-rl;transform:rotate(180deg);">技能水平</span>
+      <div class="flow-zone zone-flow">心流 FLOW<br>挑战 ≈ 技能</div>
+      <div class="flow-zone zone-anxiety">焦虑</div>
+      <div class="flow-zone zone-boredom">无聊</div>
+      <div class="flow-zone zone-apathy">冷漠</div>
+    </div>
+    <p style="font-size: 12px; color: var(--sepia-light); line-height: 1.5;">
+      <strong>核心洞察：</strong>心流不在「容易」时发生，而在<strong>挑战与技能动态平衡</strong>时发生。随着技能提升，你必须主动寻找更大的挑战——否则就会滑入无聊区。
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">四个观察</div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 1</div>
+      <div class="item-text"><strong>时间感知扭曲</strong>——在心流中，几小时像几分钟。大脑的前额叶皮层活动降低，「现在」成为唯一的存在。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 2</div>
+      <div class="item-text"><strong>自我意识消融</strong>——你不再担心别人怎么看你，不再自我批评。这种「去自我化」释放了巨大的认知资源。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 3</div>
+      <div class="item-text"><strong>即时反馈回路</strong>——每一步都提供即时反馈。延迟反馈会破坏心流——这就是为什么电子游戏比教科书更容易让人沉浸。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 4</div>
+      <div class="item-text"><strong>行动与意识的融合</strong>——你不再「想」怎么做，而是直接「做」。内隐知识接管了外显思考。</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">五个方法</div>
+    <div class="method-item">
+      <div class="method-num">Method 1</div>
+      <div class="item-text"><strong>校准挑战难度</strong>——选择比你当前能力稍高 4% 的任务（Kotler, 2014）。太简单会无聊，太难会焦虑。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 2</div>
+      <div class="item-text"><strong>消除干扰，设计触发器</strong>——同样的地点、同样的时间、同样的音乐可以作为「心流仪式」。关闭通知，把手机放到另一个房间。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 3</div>
+      <div class="item-text"><strong>设定清晰、即时的目标</strong>——目标要像游戏中的关卡一样：清晰边界 + 可立即验证的完成标准。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 4</div>
+      <div class="item-text"><strong>追求深度而非广度</strong>——多任务切换平均每 3 分钟打断一次心流重建过程。用「时间块」代替任务清单。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 5</div>
+      <div class="item-text"><strong>主动寻找「微流」</strong>——短暂的高度专注时刻可以在日常中培养。洗盘子时全神贯注，走路时感受步伐。</div>
+    </div>
+  </div>
+
+  <div class="references">
+    <strong>📚 参考文献</strong><br>
+    Csikszentmihalyi (1990). <i>Flow: The Psychology of Optimal Experience</i>. Harper & Row.<br>
+    Nakamura & Csikszentmihalyi (2002). The concept of flow. <i>Handbook of Positive Psychology</i>, 89-105.<br>
+    Kotler (2014). <i>The Rise of Superman</i>. Houghton Mifflin.
+    <br><br>
+    <strong>📖 推荐书籍</strong><br>
+    《心流》米哈里·契克森米哈赖 | 《盗火》史蒂芬·科特勒 & 杰米·威尔
+  </div>
+
+  <div class="footer">
+    "Enjoyment appears at the boundary between boredom and anxiety." — Mihaly Csikszentmihalyi<br>
+    Cognitive Visual Lab · Plate 05
+  </div>
+</body>
+</html>

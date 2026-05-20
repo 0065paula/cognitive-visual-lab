@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 05 · 心流 | Flow</title>
+<style>
+  @page { size: A4 landscape; margin: 12mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #f7f3eb;
+    --parchment-dark: #ede8dd;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --gold: #8B4513;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+  body {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", Georgia, "Times New Roman", serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    width: 297mm;
+    height: 210mm;
+    overflow: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+  .plate {
+    width: 100%; height: 100%;
+    padding: 10mm 14mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .plate::before {
+    content: "";
+    position: absolute;
+    top: 6mm; left: 6mm; right: 6mm; bottom: 6mm;
+    border: 1px solid var(--rule);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .plate::after {
+    content: "";
+    position: absolute;
+    top: 7mm; left: 7mm; right: 7mm; bottom: 7mm;
+    border: 0.5px solid var(--rule-light);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .lang-toggle {
+    position: absolute;
+    top: 9mm; right: 10mm;
+    z-index: 10;
+    display: flex; gap: 0;
+    border: 1px solid var(--bronze);
+    border-radius: 2px;
+    overflow: hidden;
+    font-family: -apple-system, sans-serif;
+    font-size: 8pt;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    padding: 2mm 4mm;
+    cursor: pointer;
+    color: var(--bronze);
+    font-size: 8pt;
+    letter-spacing: 0.5pt;
+  }
+  .lang-toggle button.active {
+    background: var(--bronze);
+    color: white;
+  }
+  [data-lang] { display: none; }
+  [data-lang="zh"] { display: block; }
+  body.lang-en [data-lang="zh"] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
+
+  .header {
+    text-align: center;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .header::after {
+    content: '❧';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--parchment);
+    padding: 0 12px;
+    color: var(--bronze);
+    font-size: 14px;
+  }
+  .series-label {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 6px;
+  }
+  .title {
+    font-size: 26pt;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+  .title-en {
+    display: block;
+    font-size: 11pt;
+    color: var(--bronze-light);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  .subtitle {
+    font-size: 9pt;
+    color: var(--sepia-light);
+    margin-top: 6px;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .main {
+    flex: 1;
+    display: flex;
+    gap: 10mm;
+    margin-top: 8px;
+    min-height: 0;
+  }
+  .left-col {
+    flex: 1.05;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .right-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .section-num {
+    font-family: "Courier New", monospace;
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .section-title {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sepia);
+  }
+  .panel {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    position: relative;
+  }
+  .panel::before {
+    content: "";
+    position: absolute;
+    top: 3px; left: 3px; right: 3px; bottom: 3px;
+    border: 0.5px dashed var(--rule-light);
+    pointer-events: none;
+  }
+  .fig-label {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 11px;
+    color: var(--bronze-light);
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+
+  /* FLOW CHANNEL VISUAL */
+  .flow-channel {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    margin-bottom: 8px;
+  }
+  .flow-axis-x {
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    right: 10px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .flow-axis-y {
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    bottom: 0;
+    width: 1px;
+    background: var(--rule);
+  }
+  .axis-label-x {
+    position: absolute;
+    bottom: -14px;
+    right: 0;
+    font-size: 7pt;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .axis-label-y {
+    position: absolute;
+    top: 0;
+    left: -20px;
+    font-size: 7pt;
+    color: var(--sepia-light);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+    transform: rotate(180deg);
+  }
+  .flow-zone {
+    position: absolute;
+    border-radius: 2px;
+    font-size: 7pt;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+    padding: 2px 4px;
+    line-height: 1.3;
+  }
+  .zone-flow {
+    top: 20px; left: 50%; right: 30px; bottom: 30px;
+    background: rgba(74, 103, 65, 0.12);
+    border: 1px dashed var(--bronze);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--bronze);
+    font-weight: 700;
+    text-align: center;
+  }
+  .zone-anxiety {
+    top: 10px; left: 60%; right: 15px; bottom: auto;
+    height: 35px;
+    background: rgba(139, 69, 19, 0.1);
+    border: 0.5px dashed var(--gold);
+    color: var(--gold);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .zone-boredom {
+    top: auto; left: 40%; right: 40%; bottom: 10px;
+    height: 30px;
+    background: rgba(156, 139, 122, 0.12);
+    border: 0.5px dashed var(--bronze-light);
+    color: var(--bronze-light);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .zone-apathy {
+    top: auto; left: 30px; right: 60%; bottom: 10px;
+    height: 30px;
+    background: rgba(196, 184, 168, 0.15);
+    border: 0.5px dashed var(--rule);
+    color: var(--sepia-light);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .zone-flow-arrow {
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: var(--bronze);
+    top: 50%;
+    left: 55%;
+  }
+  .zone-flow-arrow::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: -2px;
+    border: 3px solid transparent;
+    border-left: 5px solid var(--bronze);
+  }
+
+  .obs-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px dotted var(--rule-light);
+  }
+  .obs-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .obs-num {
+    font-family: "Courier New", monospace;
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 24px;
+  }
+  .obs-text {
+    font-size: 8pt;
+    line-height: 1.5;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .obs-text strong {
+    color: var(--sepia);
+    font-weight: 600;
+  }
+  .method-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px dotted var(--rule-light);
+    align-items: flex-start;
+  }
+  .method-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .method-marker {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bronze);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7pt;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .method-text {
+    font-size: 8pt;
+    line-height: 1.5;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .method-text strong {
+    color: var(--sepia);
+    font-weight: 600;
+  }
+  .footnote {
+    font-size: 6.5pt;
+    color: var(--bronze-light);
+    font-style: italic;
+    margin-top: 4px;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .references {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: white;
+    border: 1px solid var(--rule);
+    font-size: 6.5pt;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+    line-height: 1.5;
+  }
+  .references strong {
+    color: var(--bronze);
+  }
+  .footer {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .footer-left {
+    font-style: italic;
+    font-size: 7.5pt;
+    color: var(--bronze-light);
+  }
+  .footer-right {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.1em;
+    color: var(--bronze);
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .lang-toggle { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="plate">
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="header">
+    <div class="series-label">Cognitive Visual Lab · Plate 05</div>
+    <h1 class="title">
+      <span data-lang="zh">心流：最佳体验的科学</span>
+      <span data-lang="en">Flow: The Science of Optimal Experience</span>
+      <span class="title-en" data-lang="zh">Flow: The Science of Optimal Experience</span>
+      <span class="title-en" data-lang="en">心流：最佳体验的科学</span>
+    </h1>
+    <p class="subtitle" data-lang="zh">当挑战与技能完美匹配时，时间消失，自我消融 · 可打印学习图版</p>
+    <p class="subtitle" data-lang="en">When challenge perfectly matches skill, time vanishes, self dissolves · Printable Plate</p>
+  </div>
+
+  <div class="main">
+    <div class="left-col">
+      <div class="section-header">
+        <span class="section-num">I.</span>
+        <span class="section-title" data-lang="zh">THE FLOW CHANNEL · 心流通道</span>
+        <span class="section-title" data-lang="en">THE FLOW CHANNEL · The Flow Channel</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 1</span>
+        <div class="flow-channel">
+          <div class="flow-axis-y">
+            <span class="axis-label-y" data-lang="zh">技能水平</span>
+            <span class="axis-label-y" data-lang="en">Skill Level</span>
+          </div>
+          <div class="flow-axis-x">
+            <span class="axis-label-x" data-lang="zh">挑战程度 →</span>
+            <span class="axis-label-x" data-lang="en">Challenge Level →</span>
+          </div>
+
+          <div class="flow-zone zone-flow">
+            <span data-lang="zh">心流 FLOW<br>挑战 ≈ 技能</span>
+            <span data-lang="en">FLOW<br>Challenge ≈ Skill</span>
+          </div>
+          <div class="flow-zone zone-anxiety">
+            <span data-lang="zh">焦虑 Anxiety</span>
+            <span data-lang="en">Anxiety</span>
+          </div>
+          <div class="flow-zone zone-boredom">
+            <span data-lang="zh">无聊 Boredom</span>
+            <span data-lang="en">Boredom</span>
+          </div>
+          <div class="flow-zone zone-apathy">
+            <span data-lang="zh">冷漠 Apathy</span>
+            <span data-lang="en">Apathy</span>
+          </div>
+          <div class="zone-flow-arrow"></div>
+        </div>
+
+        <p style="margin-top: 4px; font-size: 7.5pt; color: var(--sepia-light); font-family: 'Helvetica Neue', 'PingFang SC', sans-serif; line-height: 1.5;" data-lang="zh">
+          <strong>核心洞察：</strong>心流不在「容易」时发生，而在<strong>挑战与技能动态平衡</strong>时发生。随着技能提升，你必须主动寻找更大的挑战——否则就会滑入无聊区。
+        </p>
+        <p style="margin-top: 4px; font-size: 7.5pt; color: var(--sepia-light); font-family: 'Helvetica Neue', 'PingFang SC', sans-serif; line-height: 1.5;" data-lang="en">
+          <strong>Core insight:</strong> Flow doesn't occur when things are "easy" — it happens when <strong>challenge and skill are dynamically balanced</strong>. As skill improves, you must actively seek greater challenges — or slide into boredom.
+        </p>
+      </div>
+
+      <div class="section-header" style="margin-top: 6px;">
+        <span class="section-num">II.</span>
+        <span class="section-title" data-lang="zh">OBSERVATIONS · 观察</span>
+        <span class="section-title" data-lang="en">OBSERVATIONS · Observations</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 2</span>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 1</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>时间感知扭曲</strong>——在心流中，几小时像几分钟。大脑的前额叶皮层活动降低，负责时间感知的前扣带皮层活跃度下降，「现在」成为唯一的存在。</span>
+            <span data-lang="en"><strong>Time perception distortion</strong> — In flow, hours feel like minutes. Prefrontal cortex activity decreases; the anterior cingulate cortex, responsible for time perception, quiets. "Now" becomes the only existence.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 2</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>自我意识消融</strong>——你不再担心别人怎么看你，不再自我批评。这种「去自我化」释放了巨大的认知资源，全部投入到任务本身。</span>
+            <span data-lang="en"><strong>Loss of self-consciousness</strong> — You stop worrying about how others see you, stop self-criticizing. This "de-egoization" frees enormous cognitive resources, directing them entirely into the task.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 3</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>即时反馈回路</strong>——棋手的每一步、程序员的每行代码、乐手的每个音符都提供即时反馈。延迟反馈会破坏心流——这就是为什么电子游戏比教科书更容易让人沉浸。</span>
+            <span data-lang="en"><strong>Immediate feedback loop</strong> — Every move in chess, every line of code, every musical note provides instant feedback. Delayed feedback breaks flow — this is why video games are more immersive than textbooks.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 4</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>行动与意识的融合</strong>——你不再「想」怎么做，而是直接「做」。内隐知识接管了外显思考。像职业运动员说的：「身体自己知道该怎么做。」</span>
+            <span data-lang="en"><strong>Merging of action and awareness</strong> — You stop "thinking" about how to do it and simply "do" it. Implicit knowledge takes over explicit thinking. As professional athletes say: "The body just knows what to do."</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-col">
+      <div class="section-header">
+        <span class="section-num">III.</span>
+        <span class="section-title" data-lang="zh">METHODS · 实践方法</span>
+        <span class="section-title" data-lang="en">METHODS · Practical Methods</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 3</span>
+
+        <div class="method-item">
+          <div class="method-marker">1</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>校准挑战难度</strong>——选择比你当前能力稍高 4% 的任务（Kotler, 2014）。太简单会无聊，太难会焦虑。使用「可量化的」标准来设定挑战，如：今天比昨天多专注 5 分钟。</span>
+            <span data-lang="en"><strong>Calibrate challenge difficulty</strong> — Choose tasks ~4% above your current ability (Kotler, 2014). Too easy = boredom; too hard = anxiety. Use quantifiable standards: e.g., focus 5 minutes longer than yesterday.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">2</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>消除干扰，设计触发器</strong>——心流对环境极其敏感。同样的地点、同样的时间、同样的音乐可以作为「心流仪式」。关闭通知，把手机放到另一个房间。</span>
+            <span data-lang="en"><strong>Eliminate distractions, design triggers</strong> — Flow is highly sensitive to environment. The same location, same time, same music serve as "flow rituals." Turn off notifications; put your phone in another room.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">3</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>设定清晰、即时的目标</strong>——「学习编程」太模糊。「完成一个能运行的猜数字游戏」足够具体。目标要像游戏中的关卡一样：清晰边界 + 可立即验证的完成标准。</span>
+            <span data-lang="en"><strong>Set clear, immediate goals</strong> — "Learn programming" is too vague. "Build a working number-guessing game" is specific enough. Goals should be like game levels: clear boundaries + immediately verifiable completion criteria.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">4</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>追求深度而非广度</strong>——心流需要单一任务的持续投入。多任务切换平均每 3 分钟打断一次心流重建过程。用「时间块」（time blocking）代替任务清单。</span>
+            <span data-lang="en"><strong>Pursue depth over breadth</strong> — Flow requires sustained single-task investment. Task-switching interrupts flow rebuilding every ~3 minutes. Use "time blocking" instead of to-do lists.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">5</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>主动寻找「微流」</strong>——完整的心流很珍贵，但「微流」（microflow）——短暂的高度专注时刻——可以在日常中培养。洗盘子时全神贯注，走路时感受步伐。这些是心流的「训练场」。</span>
+            <span data-lang="en"><strong>Actively seek "microflow"</strong> — Full flow is precious, but "microflow" — brief moments of intense focus — can be cultivated daily. Be fully present while washing dishes; feel each step while walking. These are flow "training grounds."</span>
+          </div>
+        </div>
+
+        <p class="footnote" data-lang="zh">
+          * 心流研究已扩展到教育、运动、创意工作等领域。最新神经科学发现：心流状态与去甲肾上腺素、多巴胺、内啡肽、大麻素和血清素的协同释放有关（Kotler & Wheal, 2017）。
+        </p>
+        <p class="footnote" data-lang="en">
+          * Flow research has expanded to education, sports, and creative work. Latest neuroscience: flow states involve synergistic release of norepinephrine, dopamine, endorphins, anandamide, and serotonin (Kotler & Wheal, 2017).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="references">
+    <strong>📚 References</strong><br>
+    <span data-lang="zh">Csikszentmihalyi (1990). <i>Flow: The Psychology of Optimal Experience</i>. Harper & Row. | Nakamura & Csikszentmihalyi (2002). The concept of flow. <i>Handbook of Positive Psychology</i>, 89-105. | Kotler (2014). <i>The Rise of Superman</i>. Houghton Mifflin.</span>
+    <span data-lang="en">Csikszentmihalyi (1990). <i>Flow: The Psychology of Optimal Experience</i>. Harper & Row. | Nakamura & Csikszentmihalyi (2002). The concept of flow. <i>Handbook of Positive Psychology</i>, 89-105. | Kotler (2014). <i>The Rise of Superman</i>. Houghton Mifflin.</span>
+    <br><br>
+    <strong>📖 Related Books</strong><br>
+    <span data-lang="zh">《心流》米哈里·契克森米哈赖 | 《盗火》史蒂芬·科特勒 & 杰米·威尔</span>
+    <span data-lang="en"><i>Flow</i> Mihaly Csikszentmihalyi | <i>Stealing Fire</i> Steven Kotler & Jamie Wheal</span>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">"Enjoyment appears at the boundary between boredom and anxiety." — Mihaly Csikszentmihalyi</div>
+    <div class="footer-right">COGNITIVE VISUAL LAB · 05</div>
+  </div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active',
+      (lang === 'zh' && btn.textContent === '中文') ||
+      (lang === 'en' && btn.textContent === 'EN')
+    );
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 04 · 认知负荷 | Cognitive Load</title>
+<style>
+  @page { size: A4 landscape; margin: 12mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #f7f3eb;
+    --parchment-dark: #ede8dd;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --gold: #8B4513;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+  body {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", Georgia, "Times New Roman", serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    width: 297mm;
+    height: 210mm;
+    overflow: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+  .plate {
+    width: 100%; height: 100%;
+    padding: 10mm 14mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .plate::before {
+    content: "";
+    position: absolute;
+    top: 6mm; left: 6mm; right: 6mm; bottom: 6mm;
+    border: 1px solid var(--rule);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .plate::after {
+    content: "";
+    position: absolute;
+    top: 7mm; left: 7mm; right: 7mm; bottom: 7mm;
+    border: 0.5px solid var(--rule-light);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .lang-toggle {
+    position: absolute;
+    top: 9mm; right: 10mm;
+    z-index: 10;
+    display: flex; gap: 0;
+    border: 1px solid var(--bronze);
+    border-radius: 2px;
+    overflow: hidden;
+    font-family: -apple-system, sans-serif;
+    font-size: 8pt;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    padding: 2mm 4mm;
+    cursor: pointer;
+    color: var(--bronze);
+    font-size: 8pt;
+    letter-spacing: 0.5pt;
+  }
+  .lang-toggle button.active {
+    background: var(--bronze);
+    color: white;
+  }
+  [data-lang] { display: none; }
+  [data-lang="zh"] { display: block; }
+  body.lang-en [data-lang="zh"] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
+
+  .header {
+    text-align: center;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .header::after {
+    content: '❧';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--parchment);
+    padding: 0 12px;
+    color: var(--bronze);
+    font-size: 14px;
+  }
+  .series-label {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 6px;
+  }
+  .title {
+    font-size: 26pt;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+  .title-en {
+    display: block;
+    font-size: 11pt;
+    color: var(--bronze-light);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  .subtitle {
+    font-size: 9pt;
+    color: var(--sepia-light);
+    margin-top: 6px;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .main {
+    flex: 1;
+    display: flex;
+    gap: 10mm;
+    margin-top: 8px;
+    min-height: 0;
+  }
+  .left-col {
+    flex: 1.05;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .right-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .section-num {
+    font-family: "Courier New", monospace;
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .section-title {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sepia);
+  }
+  .panel {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    position: relative;
+  }
+  .panel::before {
+    content: "";
+    position: absolute;
+    top: 3px; left: 3px; right: 3px; bottom: 3px;
+    border: 0.5px dashed var(--rule-light);
+    pointer-events: none;
+  }
+  .fig-label {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 11px;
+    color: var(--bronze-light);
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+
+  /* JUGGLER VISUAL */
+  .juggler-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .load-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .load-label {
+    font-size: 8pt;
+    font-weight: 700;
+    width: 70px;
+    text-align: right;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .load-track {
+    flex: 1;
+    height: 16px;
+    background: var(--parchment-dark);
+    border: 0.5px solid var(--rule);
+    position: relative;
+  }
+  .load-fill {
+    height: 100%;
+    position: relative;
+  }
+  .fill-intrinsic { background: var(--bronze); }
+  .fill-extraneous { background: var(--gold); }
+  .fill-germane { background: #6B8E9B; }
+  .load-value {
+    font-size: 7pt;
+    font-family: "Courier New", monospace;
+    color: var(--sepia-light);
+    width: 40px;
+    text-align: left;
+  }
+
+  .obs-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px dotted var(--rule-light);
+  }
+  .obs-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .obs-num {
+    font-family: "Courier New", monospace;
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 24px;
+  }
+  .obs-text {
+    font-size: 8pt;
+    line-height: 1.5;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .obs-text strong {
+    color: var(--sepia);
+    font-weight: 600;
+  }
+  .method-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px dotted var(--rule-light);
+    align-items: flex-start;
+  }
+  .method-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .method-marker {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bronze);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7pt;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .method-text {
+    font-size: 8pt;
+    line-height: 1.5;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .method-text strong {
+    color: var(--sepia);
+    font-weight: 600;
+  }
+  .footnote {
+    font-size: 6.5pt;
+    color: var(--bronze-light);
+    font-style: italic;
+    margin-top: 4px;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .references {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: white;
+    border: 1px solid var(--rule);
+    font-size: 6.5pt;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+    line-height: 1.5;
+  }
+  .references strong {
+    color: var(--bronze);
+  }
+  .footer {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .footer-left {
+    font-style: italic;
+    font-size: 7.5pt;
+    color: var(--bronze-light);
+  }
+  .footer-right {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.1em;
+    color: var(--bronze);
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .lang-toggle { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="plate">
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="header">
+    <div class="series-label">Cognitive Visual Lab · Plate 04</div>
+    <h1 class="title">
+      <span data-lang="zh">认知负荷：大脑的带宽管理</span>
+      <span data-lang="en">Cognitive Load: Managing the Brain's Bandwidth</span>
+      <span class="title-en" data-lang="zh">Cognitive Load: Managing the Brain's Bandwidth</span>
+      <span class="title-en" data-lang="en">认知负荷：大脑的带宽管理</span>
+    </h1>
+    <p class="subtitle" data-lang="zh">为什么同时处理太多信息会让大脑「宕机」· 可打印学习图版</p>
+    <p class="subtitle" data-lang="en">Why too much information at once makes the brain "freeze" · Printable Plate</p>
+  </div>
+
+  <div class="main">
+    <div class="left-col">
+      <div class="section-header">
+        <span class="section-num">I.</span>
+        <span class="section-title" data-lang="zh">THE LOADS · 三种负荷</span>
+        <span class="section-title" data-lang="en">THE LOADS · Three Types</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 1</span>
+        <div class="juggler-visual">
+          <div class="load-bar">
+            <span class="load-label" data-lang="zh">内在负荷</span>
+            <span class="load-label" data-lang="en">Intrinsic</span>
+            <div class="load-track">
+              <div class="load-fill fill-intrinsic" style="width: 40%;"></div>
+            </div>
+            <span class="load-value">40%</span>
+          </div>
+          <div style="font-size: 6.5pt; color: var(--sepia-light); margin-left: 78px; line-height: 1.4;" data-lang="zh">材料本身的复杂度。学微积分比学加法负荷高——这是不可避免的。</div>
+          <div style="font-size: 6.5pt; color: var(--sepia-light); margin-left: 78px; line-height: 1.4;" data-lang="en">Complexity inherent to the material. Calculus is harder than addition — unavoidable.</div>
+
+          <div class="load-bar" style="margin-top: 6px;">
+            <span class="load-label" data-lang="zh">外在负荷</span>
+            <span class="load-label" data-lang="en">Extraneous</span>
+            <div class="load-track">
+              <div class="load-fill fill-extraneous" style="width: 35%;"></div>
+            </div>
+            <span class="load-value">35%</span>
+          </div>
+          <div style="font-size: 6.5pt; color: var(--sepia-light); margin-left: 78px; line-height: 1.4;" data-lang="zh">不良设计带来的浪费。花哨的 PPT 动画、无关的插图、分散注意的装饰。</div>
+          <div style="font-size: 6.5pt; color: var(--sepia-light); margin-left: 78px; line-height: 1.4;" data-lang="en">Waste from poor design. Fancy PPT animations, irrelevant images, distracting decoration.</div>
+
+          <div class="load-bar" style="margin-top: 6px;">
+            <span class="load-label" data-lang="zh">相关负荷</span>
+            <span class="load-label" data-lang="en">Germane</span>
+            <div class="load-track">
+              <div class="load-fill fill-germane" style="width: 25%;"></div>
+            </div>
+            <span class="load-value">25%</span>
+          </div>
+          <div style="font-size: 6.5pt; color: var(--sepia-light); margin-left: 78px; line-height: 1.4;" data-lang="zh">促进深层理解的投入。建立联系、归纳模式、纳入已有知识体系。</div>
+          <div style="font-size: 6.5pt; color: var(--sepia-light); margin-left: 78px; line-height: 1.4;" data-lang="en">Investment in deep understanding. Building connections, recognizing patterns, integrating knowledge.</div>
+        </div>
+
+        <p style="margin-top: 8px; font-size: 7.5pt; color: var(--sepia-light); font-family: 'Helvetica Neue', 'PingFang SC', sans-serif; line-height: 1.5;" data-lang="zh">
+          <strong>教学设计的核心目标：</strong>降低外在负荷，把释放出的认知资源用于相关负荷。内在负荷由内容决定，无法消除，但可以通过「分块」和「渐进」来管理。
+        </p>
+        <p style="margin-top: 8px; font-size: 7.5pt; color: var(--sepia-light); font-family: 'Helvetica Neue', 'PingFang SC', sans-serif; line-height: 1.5;" data-lang="en">
+          <strong>The core goal of instructional design:</strong> Reduce extraneous load, redirect freed resources to germane load. Intrinsic load is determined by content and cannot be eliminated, but can be managed through "chunking" and "scaffolding."
+        </p>
+      </div>
+
+      <div class="section-header" style="margin-top: 6px;">
+        <span class="section-num">II.</span>
+        <span class="section-title" data-lang="zh">OBSERVATIONS · 观察</span>
+        <span class="section-title" data-lang="en">OBSERVATIONS · Observations</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 2</span>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 1</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>总容量固定，分配是关键</strong>——工作记忆就像 4±1 个槽位（Cowan, 2001）。内在负荷占得越多，留给相关理解的就越少。外在负荷是「小偷」，悄悄偷走你的理解力。</span>
+            <span data-lang="en"><strong>Total capacity is fixed; allocation is key</strong> — Working memory has ~4 slots (Cowan, 2001). The more intrinsic load consumes, the less remains for deep understanding. Extraneous load is a "thief" silently stealing comprehension.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 2</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>分心效应（Split-Attention Effect）</strong>——当信息需要同时在两个地方处理（如看图又看文字说明），外在负荷翻倍。整合呈现可以降低 40-60% 的认知负荷。</span>
+            <span data-lang="en"><strong>Split-Attention Effect</strong> — When information must be processed in two places simultaneously (e.g., diagram + text explanation), extraneous load doubles. Integrated presentation can reduce cognitive load by 40-60%.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 3</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>冗余效应（Redundancy Effect）</strong>——同样的信息用两种形式呈现（如同时说和写），初学者反而更差。专家可以处理冗余，初学者会被淹没。</span>
+            <span data-lang="en"><strong>Redundancy Effect</strong> — Presenting the same information in two forms (e.g., spoken + written simultaneously) harms novices. Experts can handle redundancy; novices are overwhelmed.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 4</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>专家悖论</strong>——专家因为知识自动化，内在负荷极低，所以可以同时处理多个复杂任务。新手连一个任务都超负荷。这就是为什么「专家觉得简单」不等于「对初学者简单」。</span>
+            <span data-lang="en"><strong>The Expert Paradox</strong> — Experts have automated knowledge, so intrinsic load is minimal, allowing multiple complex tasks. Novices are overwhelmed by one task. "Simple for an expert" ≠ "simple for a beginner."</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-col">
+      <div class="section-header">
+        <span class="section-num">III.</span>
+        <span class="section-title" data-lang="zh">METHODS · 实践方法</span>
+        <span class="section-title" data-lang="en">METHODS · Practical Methods</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 3</span>
+
+        <div class="method-item">
+          <div class="method-marker">1</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>一次只给一个目标</strong>——教学材料中每个元素都应为学习目标服务。如果一个图表、一段文字、一个动画不能回答「这为什么在这里？」，它就是外在负荷，应该删除。</span>
+            <span data-lang="en"><strong>One goal at a time</strong> — Every element in instructional material should serve the learning objective. If a diagram, text, or animation cannot answer "Why is this here?" it's extraneous load and should be removed.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">2</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>用「样例」代替「题目」</strong>——给新手直接展示解题步骤（worked examples），比让他们自己摸索更省认知资源。当技能提升后，再逐步减少提示（fading）。</span>
+            <span data-lang="en"><strong>Use worked examples instead of problems</strong> — Showing novices worked solution steps saves cognitive resources compared to letting them struggle. Fade prompts gradually as skill develops.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">3</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>整合信息，避免分心</strong>——把图和文字说明放在同一视觉区域，不要让人在页面上来回扫视。标注直接画在图上，而非放在图注里。</span>
+            <span data-lang="en"><strong>Integrate information, avoid split attention</strong> — Place diagrams and explanations in the same visual area. Don't make readers scan back and forth. Label directly on diagrams, not in captions.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">4</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>渐进释放责任</strong>——从「我来做，你看」（示范）→「我们一起做」（指导）→「你做，我来看」（独立）。每一步都在匹配学习者的认知容量。</span>
+            <span data-lang="en"><strong>Gradual release of responsibility</strong> — From "I do, you watch" (modeling) → "We do together" (guided) → "You do, I watch" (independent). Each step matches the learner's cognitive capacity.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">5</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>消除冗余，但保留多样性</strong>——不要同时用文字+语音+图表说同一件事。但可以用一种形式讲概念，另一种形式讲例子（互补而非重复）。</span>
+            <span data-lang="en"><strong>Eliminate redundancy, but preserve variety</strong> — Don't present the same thing in text + audio + diagram simultaneously. But use one format for concepts and another for examples (complementary, not repetitive).</span>
+          </div>
+        </div>
+
+        <p class="footnote" data-lang="zh">
+          * 核心机制：认知负荷理论（Sweller, 1988）指出，学习发生在相关负荷占主导时——教学设计者的任务是最大化相关负荷，最小化外在负荷。
+        </p>
+        <p class="footnote" data-lang="en">
+          * Core mechanism: Cognitive Load Theory (Sweller, 1988) states learning occurs when germane load dominates — instructional designers must maximize germane and minimize extraneous load.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="references">
+    <strong>📚 References</strong><br>
+    <span data-lang="zh">Sweller (1988). Cognitive Load During Problem Solving. <i>Cognitive Science</i>, 12(2), 257-285. | Cowan (2001). The magical number 4 in short-term memory. <i>BBS</i>, 24(1), 87-114. | Chandler & Sweller (1992). The split-attention effect. <i>J. of Educational Psychology</i>, 84(4), 414-452.</span>
+    <span data-lang="en">Sweller (1988). Cognitive Load During Problem Solving. <i>Cognitive Science</i>, 12(2), 257-285. | Cowan (2001). The magical number 4 in short-term memory. <i>BBS</i>, 24(1), 87-114. | Chandler & Sweller (1992). The split-attention effect. <i>J. of Educational Psychology</i>, 84(4), 414-452.</span>
+    <br><br>
+    <strong>📖 Related Books</strong><br>
+    <span data-lang="zh">《教学设计原理》Robert Mayer | 《认知负荷理论》John Sweller</span>
+    <span data-lang="en"><i>Multimedia Learning</i> Richard Mayer | <i>Cognitive Load Theory</i> John Sweller</span>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">"The art of teaching is the art of assisting discovery." — Mark Van Doren</div>
+    <div class="footer-right">COGNITIVE VISUAL LAB · 04</div>
+  </div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active',
+      (lang === 'zh' && btn.textContent === '中文') ||
+      (lang === 'en' && btn.textContent === 'EN')
+    );
+  });
+}
+</script>
+</body>
+</html>

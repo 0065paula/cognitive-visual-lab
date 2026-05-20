@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 04 · 认知负荷 | Cognitive Load</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #f7f3eb;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --gold: #8B4513;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+  body {
+    font-family: "Noto Serif SC", Georgia, serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    padding: 20px 16px;
+    line-height: 1.6;
+  }
+  .header {
+    text-align: center;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .series-label {
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 8px;
+  }
+  h1 { font-size: 22px; font-weight: 400; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--sepia-light); font-style: italic; }
+
+  .section { margin-bottom: 24px; }
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bronze);
+    margin-bottom: 12px;
+    border-left: 3px solid var(--bronze);
+    padding-left: 8px;
+  }
+
+  .load-demo {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .load-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .load-label { font-size: 11px; font-weight: 700; width: 60px; }
+  .load-track {
+    flex: 1;
+    height: 14px;
+    background: var(--parchment);
+    border: 0.5px solid var(--rule);
+  }
+  .load-fill {
+    height: 100%;
+  }
+  .fill-intrinsic { background: var(--bronze); width: 40%; }
+  .fill-extraneous { background: var(--gold); width: 35%; }
+  .fill-germane { background: #6B8E9B; width: 25%; }
+  .load-value {
+    font-size: 10px;
+    font-family: monospace;
+    color: var(--sepia-light);
+    width: 36px;
+  }
+  .load-desc {
+    font-size: 11px;
+    color: var(--sepia-light);
+    margin-left: 68px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .obs-item, .method-item {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .obs-num, .method-num {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .item-text { font-size: 13px; color: var(--sepia-light); line-height: 1.5; }
+  .item-text strong { color: var(--sepia); }
+
+  .references {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    font-size: 11px;
+    color: var(--sepia-light);
+    line-height: 1.5;
+  }
+  .references strong { color: var(--bronze); }
+
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 11px;
+    color: var(--bronze-light);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="series-label">Cognitive Visual Lab · Plate 04</div>
+    <h1>认知负荷：大脑的带宽管理</h1>
+    <p class="subtitle">为什么同时处理太多信息会让大脑「宕机」</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">三种负荷</div>
+    <div class="load-demo">
+      <div class="load-row">
+        <span class="load-label">内在</span>
+        <div class="load-track"><div class="load-fill fill-intrinsic"></div></div>
+        <span class="load-value">40%</span>
+      </div>
+      <div class="load-desc">材料本身的复杂度。学微积分比学加法负荷高——这是不可避免的。</div>
+
+      <div class="load-row">
+        <span class="load-label">外在</span>
+        <div class="load-track"><div class="load-fill fill-extraneous"></div></div>
+        <span class="load-value">35%</span>
+      </div>
+      <div class="load-desc">不良设计带来的浪费。花哨的 PPT 动画、无关的插图、分散注意的装饰。</div>
+
+      <div class="load-row">
+        <span class="load-label">相关</span>
+        <div class="load-track"><div class="load-fill fill-germane"></div></div>
+        <span class="load-value">25%</span>
+      </div>
+      <div class="load-desc">促进深层理解的投入。建立联系、归纳模式、纳入已有知识体系。</div>
+    </div>
+    <p style="font-size: 12px; color: var(--sepia-light); line-height: 1.5;">
+      <strong>核心目标：</strong>降低外在负荷，把释放出的认知资源用于相关负荷。内在负荷由内容决定，无法消除，但可以通过「分块」和「渐进」来管理。
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">四个观察</div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 1</div>
+      <div class="item-text"><strong>总容量固定，分配是关键</strong>——工作记忆就像 4±1 个槽位（Cowan, 2001）。外在负荷是「小偷」，悄悄偷走你的理解力。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 2</div>
+      <div class="item-text"><strong>分心效应</strong>——当信息需要同时在两个地方处理，外在负荷翻倍。整合呈现可以降低 40-60% 的认知负荷。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 3</div>
+      <div class="item-text"><strong>冗余效应</strong>——同样的信息用两种形式呈现，初学者反而更差。专家可以处理冗余，初学者会被淹没。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 4</div>
+      <div class="item-text"><strong>专家悖论</strong>——专家因为知识自动化，内在负荷极低。新手连一个任务都超负荷。这就是为什么「专家觉得简单」不等于「对初学者简单」。</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">五个方法</div>
+    <div class="method-item">
+      <div class="method-num">Method 1</div>
+      <div class="item-text"><strong>一次只给一个目标</strong>——每个元素都应为学习目标服务。不能回答「这为什么在这里？」的就是外在负荷，应该删除。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 2</div>
+      <div class="item-text"><strong>用「样例」代替「题目」</strong>——给新手直接展示解题步骤，比让他们自己摸索更省认知资源。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 3</div>
+      <div class="item-text"><strong>整合信息，避免分心</strong>——把图和文字说明放在同一视觉区域，标注直接画在图上。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 4</div>
+      <div class="item-text"><strong>渐进释放责任</strong>——从「我来做，你看」→「我们一起做」→「你做，我来看」。每一步匹配学习者的认知容量。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 5</div>
+      <div class="item-text"><strong>消除冗余，但保留多样性</strong>——不要同时用文字+语音+图表说同一件事。但可以用一种形式讲概念，另一种形式讲例子。</div>
+    </div>
+  </div>
+
+  <div class="references">
+    <strong>📚 参考文献</strong><br>
+    Sweller (1988). Cognitive Load During Problem Solving. <i>Cognitive Science</i>, 12(2), 257-285.<br>
+    Cowan (2001). The magical number 4 in short-term memory. <i>BBS</i>, 24(1), 87-114.<br>
+    Chandler & Sweller (1992). The split-attention effect. <i>J. of Educational Psychology</i>, 84(4), 414-452.
+    <br><br>
+    <strong>📖 推荐书籍</strong><br>
+    《教学设计原理》Robert Mayer | 《认知负荷理论》John Sweller
+  </div>
+
+  <div class="footer">
+    "The art of teaching is the art of assisting discovery." — Mark Van Doren<br>
+    Cognitive Visual Lab · Plate 04
+  </div>
+</body>
+</html>
