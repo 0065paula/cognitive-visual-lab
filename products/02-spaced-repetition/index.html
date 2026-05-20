@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 02 · 间隔重复 | Spaced Repetition</title>
+<style>
+  @page { size: A4 landscape; margin: 12mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --parchment: #f7f3eb;
+    --parchment-dark: #ede8dd;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --gold: #8B4513;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+
+  body {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", Georgia, "Times New Roman", serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    width: 297mm;
+    height: 210mm;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .poster {
+    width: 100%; height: 100%;
+    padding: 14mm 18mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .poster::before {
+    content: '';
+    position: absolute;
+    top: 8mm; left: 8mm; right: 8mm; bottom: 8mm;
+    border: 1.5px solid var(--rule);
+    pointer-events: none;
+  }
+
+  .poster::after {
+    content: '';
+    position: absolute;
+    top: 10mm; left: 10mm; right: 10mm; bottom: 10mm;
+    border: 0.5px solid var(--rule-light);
+    pointer-events: none;
+  }
+
+  .lang-toggle {
+    position: absolute;
+    top: 12mm; right: 14mm;
+    display: flex; gap: 4px;
+    z-index: 10;
+  }
+
+  .lang-btn {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    padding: 2px 8px;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--bronze-light);
+    cursor: pointer;
+  }
+
+  .lang-btn.active {
+    background: var(--bronze);
+    color: white;
+    border-color: var(--bronze);
+  }
+
+  [data-lang] { display: none; }
+  [data-lang="zh"] { display: block; }
+  body.lang-en [data-lang="zh"] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
+
+  .header {
+    text-align: center;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .header::after {
+    content: '❧';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--parchment);
+    padding: 0 12px;
+    color: var(--bronze);
+    font-size: 14px;
+  }
+
+  .series-label {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 6px;
+  }
+
+  .title {
+    font-size: 26pt;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+
+  .title-en {
+    display: block;
+    font-size: 11pt;
+    color: var(--bronze-light);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  .subtitle {
+    font-size: 9pt;
+    color: var(--sepia-light);
+    margin-top: 6px;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+
+  .main {
+    flex: 1;
+    display: flex;
+    gap: 14mm;
+    margin-top: 8px;
+  }
+
+  .coming-soon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+  }
+
+  .coming-soon h2 {
+    font-size: 20pt;
+    color: var(--bronze);
+    margin-bottom: 12px;
+  }
+
+  .coming-soon p {
+    font-size: 10pt;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+
+  .footer {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-style: italic;
+    font-size: 7.5pt;
+    color: var(--bronze-light);
+  }
+
+  .footer-right {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.1em;
+    color: var(--bronze);
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .lang-toggle { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="header">
+    <div class="series-label">Cognitive Science Visualized · Plate 02</div>
+    <h1 class="title">
+      <span data-lang="zh">间隔重复</span>
+      <span data-lang="en">Spaced Repetition</span>
+      <span class="title-en" data-lang="zh">Spaced Repetition</span>
+      <span class="title-en" data-lang="en">间隔重复</span>
+    </h1>
+    <p class="subtitle" data-lang="zh">对抗遗忘的唯一科学策略 · 可打印学习海报</p>
+    <p class="subtitle" data-lang="en">The only scientifically proven strategy against forgetting · Printable Study Poster</p>
+  </div>
+
+  <div class="main">
+    <div class="coming-soon">
+      <h2 data-lang="zh">制作中...</h2>
+      <h2 data-lang="en">In Progress...</h2>
+      <p data-lang="zh">艾宾浩斯遗忘曲线可视化 + 实用间隔重复方案</p>
+      <p data-lang="en">Ebbinghaus forgetting curve visualization + practical spaced repetition schedules</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">"Memory is the residue of thought." — Daniel Willingham</div>
+    <div class="footer-right">COGNITIVE VISUAL LAB · 02</div>
+  </div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', 
+      (lang === 'zh' && btn.textContent === '中文') || 
+      (lang === 'en' && btn.textContent === 'EN')
+    );
+  });
+}
+</script>
+</body>
+</html>
