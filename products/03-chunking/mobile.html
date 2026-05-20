@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 03 · 组块化 | Chunking</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #f7f3eb;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+  body {
+    font-family: "Noto Serif SC", Georgia, serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    padding: 20px 16px;
+    line-height: 1.6;
+  }
+  .header {
+    text-align: center;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .series-label {
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 8px;
+  }
+  h1 { font-size: 22px; font-weight: 400; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--sepia-light); font-style: italic; }
+  
+  .section { margin-bottom: 24px; }
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bronze);
+    margin-bottom: 12px;
+    border-left: 3px solid var(--bronze);
+    padding-left: 8px;
+  }
+  
+  .chunk-demo {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .chunk-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .chunk-label { font-size: 12px; font-weight: 700; width: 40px; }
+  .chunk-blocks { display: flex; gap: 2px; flex-wrap: wrap; flex: 1; }
+  .chunk-block {
+    width: 20px; height: 20px;
+    border: 0.5px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-family: monospace;
+  }
+  .chunk-block.isolated { background: var(--rule-light); }
+  .chunk-block.grouped { background: var(--bronze); color: white; }
+  
+  .obs-item, .method-item {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .obs-num, .method-num {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--bronze);
+    margin-bottom: 4px;
+  }
+  .item-text { font-size: 13px; color: var(--sepia-light); line-height: 1.5; }
+  .item-text strong { color: var(--sepia); }
+  
+  .references {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    font-size: 11px;
+    color: var(--sepia-light);
+    line-height: 1.5;
+  }
+  .references strong { color: var(--bronze); }
+  
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-size: 11px;
+    color: var(--bronze-light);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="series-label">Cognitive Visual Lab · Plate 03</div>
+    <h1>组块化：大脑的压缩算法</h1>
+    <p class="subtitle">专家与新手的差距，本质上是组块大小的差距</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">压缩演示</div>
+    <div class="chunk-demo">
+      <div class="chunk-row">
+        <span class="chunk-label">新手</span>
+        <div class="chunk-blocks">
+          <div class="chunk-block isolated">F</div><div class="chunk-block isolated">B</div><div class="chunk-block isolated">I</div>
+          <div class="chunk-block isolated">M</div><div class="chunk-block isolated">C</div><div class="chunk-block isolated">I</div>
+          <div class="chunk-block isolated">A</div><div class="chunk-block isolated">F</div><div class="chunk-block isolated">B</div>
+          <div class="chunk-block isolated">I</div><div class="chunk-block isolated">M</div><div class="chunk-block isolated">C</div>
+        </div>
+      </div>
+      <div style="text-align: center; color: var(--bronze-light); margin: 4px 0;">↓</div>
+      <div class="chunk-row">
+        <span class="chunk-label">专家</span>
+        <div class="chunk-blocks">
+          <div class="chunk-block grouped" style="width: 62px;">FBI</div>
+          <div class="chunk-block grouped" style="width: 62px;">CIA</div>
+          <div class="chunk-block grouped" style="width: 62px;">FBI</div>
+        </div>
+      </div>
+      <p style="font-size: 12px; color: var(--sepia-light); margin-top: 8px;">同样的 12 个字母，新手看到 12 个孤立信息，专家看到 3 个熟悉模式。</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">4 条观察</div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 1</div>
+      <div class="item-text"><strong>组块是「意义的容器」</strong>——不是任意分组，而是基于已有知识的结构化压缩。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 2</div>
+      <div class="item-text"><strong>专家看「森林」，新手看「树木」</strong>——国际象棋大师能记住 20+ 个棋子位置，不是因为记忆力更好，而是因为棋局符合他们的模式库。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 3</div>
+      <div class="item-text"><strong>组块化是「可逆的」</strong>——字母 → 单词 → 短语 → 概念框架，每一层都是上一层的组块化。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 4</div>
+      <div class="item-text"><strong>自动化是组块化的终点</strong>——当组块被重复调用数千次后，它从「意识加工」变成「自动执行」。</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">5 条实践方法</div>
+    <div class="method-item">
+      <div class="method-num">Method 1</div>
+      <div class="item-text"><strong>寻找模式，而非记忆细节</strong>——学吉他时，记「C和弦形状」比记「第2弦第3品」更有效。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 2</div>
+      <div class="item-text"><strong>用「大纲」给信息分层</strong>——建立层级结构（总-分-例），把零散信息压缩成可携带的组块。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 3</div>
+      <div class="item-text"><strong>把新知识「挂载」到旧组块上</strong>——学习不是从零开始，而是在已有模式上扩展。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 4</div>
+      <div class="item-text"><strong>刻意练习到自动化</strong>——同一个组块重复调用数千次后，它会从占用工作记忆变成自动执行。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 5</div>
+      <div class="item-text"><strong>教授他人是最好的组块化测试</strong>——如果你无法用简单语言讲清楚一个概念，说明它还没有被真正组块化。</div>
+    </div>
+  </div>
+
+  <div class="references">
+    <strong>📚 References</strong><br>
+    Chase & Simon (1973). Perception in Chess. <i>Cognitive Psychology</i>, 4(1), 55-81.<br>
+    Cowan (2001). The magical number 4 in short-term memory. <i>BBS</i>, 24(1), 87-114.<br>
+    Miller (1956). The magical number seven, plus or minus two. <i>Psychological Review</i>, 63(2), 81-97.<br><br>
+    <strong>📖 Related Books</strong><br>
+    《为什么学生不喜欢上学？》Daniel Willingham<br>
+    《刻意练习》Anders Ericsson & Robert Pool
+  </div>
+
+  <div class="footer">
+    "The mind best understands facts when they are woven into a conceptual fabric." — Daniel Willingham<br>
+    COGNITIVE VISUAL LAB · 03
+  </div>
+</body>
+</html>
