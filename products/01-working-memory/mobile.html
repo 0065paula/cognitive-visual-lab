@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 01 · 工作记忆就像 CPU 缓存 · Mobile</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --parchment: #f7f3eb;
+    --parchment-dark: #ede8dd;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --gold: #8B4513;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+
+  body {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", Georgia, "Times New Roman", serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Language toggle */
+  .lang-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border: 1px solid var(--bronze);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    font-family: -apple-system, sans-serif;
+    font-size: 13px;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    padding: 6px 16px;
+    cursor: pointer;
+    color: var(--bronze);
+    font-size: 13px;
+    letter-spacing: 0.5pt;
+    flex: 1;
+  }
+  .lang-toggle button.active {
+    background: var(--bronze);
+    color: var(--parchment);
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .plate-number {
+    font-size: 11px;
+    font-variant: small-caps;
+    letter-spacing: 3px;
+    color: var(--bronze);
+    margin-bottom: 8px;
+    font-family: Georgia, serif;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--sepia);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--bronze);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .latin-name {
+    font-size: 12px;
+    color: var(--bronze-light);
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 28px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .section-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--sepia);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-variant: small-caps;
+  }
+
+  /* Diagram */
+  .diagram-plate {
+    border: 0.5px solid var(--rule);
+    background: linear-gradient(to bottom, #faf8f4, #f5f2ec);
+    padding: 16px;
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .diagram-plate::before {
+    content: "Fig. 1";
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 11px;
+    color: var(--bronze-light);
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+  .cache-tier {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 0.5px dashed var(--rule-light);
+  }
+  .cache-tier:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .tier-label-box {
+    width: 50px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .tier-label-box .tier-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--sepia);
+    letter-spacing: 0.5px;
+    font-variant: small-caps;
+  }
+  .tier-label-box .tier-tech {
+    font-size: 10px;
+    color: var(--bronze);
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+  .tier-bar {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 8px;
+    color: var(--parchment);
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+    font-family: Georgia, serif;
+  }
+  .tier-l1 {
+    width: 60px;
+    background: var(--sepia);
+  }
+  .tier-l2 {
+    width: 90px;
+    background: var(--sepia-light);
+  }
+  .tier-ram {
+    width: 130px;
+    background: var(--bronze);
+  }
+  .tier-desc {
+    margin-left: 8px;
+    font-size: 12px;
+    color: var(--sepia-light);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .tier-desc em {
+    color: var(--sepia);
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  /* Annotation */
+  .annotation {
+    border-left: 2px solid var(--gold);
+    padding-left: 14px;
+  }
+  .annotation p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--sepia-light);
+    text-align: justify;
+  }
+  .annotation .highlight {
+    color: var(--sepia);
+    font-weight: 600;
+    border-bottom: 0.5px solid var(--gold);
+  }
+
+  /* Observations */
+  .obs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .obs-item {
+    padding: 14px;
+    border: 0.5px solid var(--rule-light);
+    background: rgba(255,255,255,0.3);
+  }
+  .obs-item .obs-num {
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 700;
+    font-family: Georgia, serif;
+    margin-bottom: 6px;
+  }
+  .obs-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--sepia);
+    margin-bottom: 6px;
+  }
+  .obs-item p {
+    font-size: 13px;
+    color: var(--sepia-light);
+    line-height: 1.6;
+  }
+
+  /* Methods */
+  .methods-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--sepia);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    margin-bottom: 14px;
+  }
+  .method-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 0.5px dashed var(--rule-light);
+  }
+  .method-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .method-marker {
+    width: 22px;
+    height: 22px;
+    border: 0.5px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-right: 10px;
+    margin-top: 2px;
+    font-family: Georgia, serif;
+  }
+  .method-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--sepia-light);
+  }
+  .method-text strong {
+    color: var(--sepia);
+    font-weight: 600;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .footer-quote {
+    font-size: 13px;
+    color: var(--bronze);
+    font-style: italic;
+    font-family: Georgia, serif;
+    margin-bottom: 8px;
+  }
+  .footer-brand {
+    font-size: 12px;
+    color: var(--bronze-light);
+    font-variant: small-caps;
+    letter-spacing: 2px;
+  }
+  .footer-plate {
+    font-size: 12px;
+    color: var(--gold);
+    font-family: Georgia, serif;
+    margin-top: 4px;
+  }
+
+  /* Language content */
+  .lang-cn, .lang-en {
+    display: none;
+  }
+  .lang-cn.active, .lang-en.active {
+    display: block;
+  }
+  span.lang-cn, span.lang-en {
+    display: none;
+  }
+  span.lang-cn.active, span.lang-en.active {
+    display: inline;
+  }
+
+  /* Screenshot optimization */
+  @media screen {
+    body {
+      min-height: 100vh;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="lang-toggle">
+    <button class="active" onclick="setLang('cn')" id="btn-cn">中文</button>
+    <button onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+
+  <div class="header">
+    <div class="plate-number">Cognitive Visual Lab · Plate 01</div>
+    <h1>
+      <span class="lang-cn active">工作记忆就像 CPU 缓存</span>
+      <span class="lang-en">Working Memory is Like CPU Cache</span>
+    </h1>
+    <div class="subtitle">
+      <span class="lang-cn active">一个理解大脑如何学习的极简模型</span>
+      <span class="lang-en">A Minimal Model for Understanding How the Brain Learns</span>
+    </div>
+    <div class="latin-name">
+      <span class="lang-cn active">Analogy: Hierarchical Memory Architecture</span>
+      <span class="lang-en">Analogia: Architectura Memoriae Hierarchica</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">I.</span>
+      <span class="section-title">
+        <span class="lang-cn active">The Analogy · 类比</span>
+        <span class="lang-en">The Analogy</span>
+      </span>
+    </div>
+
+    <div class="diagram-plate">
+      <div class="cache-tier">
+        <div class="tier-label-box">
+          <div class="tier-name">L1</div>
+          <div class="tier-tech">Cache</div>
+        </div>
+        <div class="tier-bar tier-l1">L1</div>
+        <div class="tier-desc">
+          <span class="lang-cn active"><em>工作记忆</em> · 4±1 组块</span>
+          <span class="lang-en"><em>Working Memory</em> · 4±1 chunks</span>
+        </div>
+      </div>
+      <div class="cache-tier">
+        <div class="tier-label-box">
+          <div class="tier-name">L2</div>
+          <div class="tier-tech">Cache</div>
+        </div>
+        <div class="tier-bar tier-l2">L2</div>
+        <div class="tier-desc">
+          <span class="lang-cn active"><em>近期记忆</em> · 秒级留存</span>
+          <span class="lang-en"><em>Recent Memory</em> · seconds</span>
+        </div>
+      </div>
+      <div class="cache-tier">
+        <div class="tier-label-box">
+          <div class="tier-name">RAM</div>
+          <div class="tier-tech">Memory</div>
+        </div>
+        <div class="tier-bar tier-ram">RAM</div>
+        <div class="tier-desc">
+          <span class="lang-cn active"><em>长期记忆</em> · 需主动调取</span>
+          <span class="lang-en"><em>Long-term</em> · requires retrieval</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <p>
+        <span class="lang-cn active">
+          CPU 不会直接从硬盘读取数据，而是依赖<span class="highlight">多级缓存</span>。你的大脑也一样：真正用于思考的不是长期记忆，而是容量极其有限的工作记忆。当缓存溢出，就会发生<span class="highlight">"缓存未命中"</span>——你感到困惑、走神、无法理解。这不是你笨，是架构限制。
+        </span>
+        <span class="lang-en">
+          A CPU does not read directly from the hard drive; it relies on <span class="highlight">hierarchical caches</span>. Your brain works the same way: what you use for thinking is not long-term memory, but extremely limited working memory. When the cache overflows, a <span class="highlight">"cache miss"</span> occurs — you feel confused, distracted, unable to comprehend. This is not stupidity; it is an architectural constraint.
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">II.</span>
+      <span class="section-title">
+        <span class="lang-cn active">Observations · 观察</span>
+        <span class="lang-en">Observations</span>
+      </span>
+    </div>
+
+    <div class="obs-list">
+      <div class="obs-item">
+        <div class="obs-num">Obs. 1</div>
+        <h4>
+          <span class="lang-cn active">组块化</span>
+          <span class="lang-en">Chunking</span>
+        </h4>
+        <p>
+          <span class="lang-cn active">把零散信息压缩成"组块"，就像把多个文件打包成 zip。专家与新手的差距，本质是组块的大小。</span>
+          <span class="lang-en">Compress scattered information into "chunks," like zipping multiple files. The gap between experts and novices is essentially the size of their chunks.</span>
+        </p>
+      </div>
+      <div class="obs-item">
+        <div class="obs-num">Obs. 2</div>
+        <h4>
+          <span class="lang-cn active">间隔重复</span>
+          <span class="lang-en">Spaced Repetition</span>
+        </h4>
+        <p>
+          <span class="lang-cn active">不是一次性塞满，而是让缓存"预热"。间隔提取比连续阅读效率高 2-3 倍。</span>
+          <span class="lang-en">Do not cram all at once; let the cache "warm up." Spaced retrieval is 2-3× more efficient than continuous reading.</span>
+        </p>
+      </div>
+      <div class="obs-item">
+        <div class="obs-num">Obs. 3</div>
+        <h4>
+          <span class="lang-cn active">单一任务</span>
+          <span class="lang-en">Single Tasking</span>
+        </h4>
+        <p>
+          <span class="lang-cn active">多任务切换的代价极高——每次切换都是一次缓存清空。专注是性能优化。</span>
+          <span class="lang-en">Context-switching is extremely costly — each switch clears the cache. Focus is performance optimization.</span>
+        </p>
+      </div>
+      <div class="obs-item">
+        <div class="obs-num">Obs. 4</div>
+        <h4>
+          <span class="lang-cn active">建立连接</span>
+          <span class="lang-en">Building Connections</span>
+        </h4>
+        <p>
+          <span class="lang-cn active">新知识必须"挂载"到已有缓存上。孤立的信息会被立即丢弃。</span>
+          <span class="lang-en">New knowledge must "mount" onto existing cache. Isolated information is immediately discarded.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">III.</span>
+      <span class="section-title">
+        <span class="lang-cn active">Methods · 实践方法</span>
+        <span class="lang-en">Methods</span>
+      </span>
+    </div>
+
+    <div class="method-item">
+      <div class="method-marker">1</div>
+      <div class="method-text">
+        <span class="lang-cn active"><strong>一次只给一个指令</strong>——对小孩、对同事、对自己。多步骤任务要拆解。</span>
+        <span class="lang-en"><strong>One instruction at a time</strong> — for children, colleagues, and yourself. Break down multi-step tasks.</span>
+      </div>
+    </div>
+    <div class="method-item">
+      <div class="method-marker">2</div>
+      <div class="method-text">
+        <span class="lang-cn active"><strong>先建立框架，再填细节</strong>——大纲是 L1 缓存里的路标，防止信息淹没。</span>
+        <span class="lang-en"><strong>Framework first, details second</strong> — an outline is a signpost in the L1 cache, preventing information overwhelm.</span>
+      </div>
+    </div>
+    <div class="method-item">
+      <div class="method-marker">3</div>
+      <div class="method-text">
+        <span class="lang-cn active"><strong>用已知的比喻讲新知</strong>——"就像..."不是在偷懒，是在帮大脑建立缓存映射。</span>
+        <span class="lang-en"><strong>Explain the new with familiar analogies</strong> — "It's like..." is not laziness; it helps the brain build cache mappings.</span>
+      </div>
+    </div>
+    <div class="method-item">
+      <div class="method-marker">4</div>
+      <div class="method-text">
+        <span class="lang-cn active"><strong>允许发呆和走神</strong>——缓存清理是必要过程，强迫持续专注反而会降低命中率。</span>
+        <span class="lang-en"><strong>Allow mind-wandering</strong> — cache cleanup is necessary. Forcing continuous focus lowers hit rates.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-quote">
+      <span class="lang-cn active">"记忆是思考的残留物。" —— Daniel Willingham</span>
+      <span class="lang-en">"Memory is the residue of thought." — Daniel Willingham</span>
+    </div>
+    <div class="footer-brand">Cognitive Visual Lab</div>
+    <div class="footer-plate">Plate 01</div>
+  </div>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('.lang-cn, .lang-en').forEach(el => {
+      el.classList.remove('active');
+    });
+    document.querySelectorAll('.lang-' + lang).forEach(el => {
+      el.classList.add('active');
+    });
+    document.getElementById('btn-cn').classList.toggle('active', lang === 'cn');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
+</script>
+
+</body>
+</html>
