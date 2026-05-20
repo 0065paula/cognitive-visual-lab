@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>工作记忆就像 CPU 缓存</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #fff; color: #2d2d2d;
+    width: 297mm; height: 210mm;
+    overflow: hidden; position: relative;
+  }
+  .container {
+    width: 100%; height: 100%;
+    padding: 14mm 18mm;
+    display: flex; flex-direction: column;
+  }
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 6mm;
+    border-bottom: 1.5px solid #ff6b35;
+    padding-bottom: 4mm;
+  }
+  .title-group { flex: 1; }
+  .tag {
+    display: inline-block; background: #ff6b35; color: #fff;
+    font-size: 8pt; font-weight: 600;
+    padding: 1.5mm 3mm; border-radius: 2mm;
+    letter-spacing: 0.5pt; margin-bottom: 2mm;
+  }
+  h1 {
+    font-size: 22pt; font-weight: 700;
+    letter-spacing: -0.3pt; line-height: 1.2; color: #1a1a1a;
+  }
+  .subtitle {
+    font-size: 10pt; color: #888;
+    margin-top: 1.5mm; font-weight: 400;
+  }
+  .logo-area {
+    text-align: right; color: #ff6b35;
+    font-size: 8pt; font-weight: 600; letter-spacing: 1pt;
+  }
+  .main {
+    flex: 1; display: flex; gap: 8mm; margin-top: 2mm;
+  }
+  .left-col {
+    flex: 1.1; display: flex; flex-direction: column; gap: 5mm;
+  }
+  .section-title {
+    font-size: 9pt; font-weight: 700; color: #ff6b35;
+    text-transform: uppercase; letter-spacing: 1pt;
+    margin-bottom: 2mm;
+  }
+  .cache-visual {
+    background: #fafafa; border-radius: 3mm;
+    padding: 5mm; border-left: 3px solid #ff6b35;
+  }
+  .cache-tier {
+    display: flex; align-items: center; margin-bottom: 3mm;
+  }
+  .cache-tier:last-child { margin-bottom: 0; }
+  .tier-bar {
+    height: 10mm; border-radius: 1.5mm;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 8pt; font-weight: 600; flex-shrink: 0;
+  }
+  .tier-l1 { width: 28mm; background: #ff6b35; }
+  .tier-l2 { width: 42mm; background: #ff8c5a; }
+  .tier-ram { width: 65mm; background: #ccc; color: #555; }
+  .tier-label {
+    margin-left: 3mm; font-size: 8pt; color: #555; line-height: 1.3;
+  }
+  .tier-label strong { color: #2d2d2d; font-weight: 600; }
+  .analogy-box {
+    background: #fff8f5; border-radius: 3mm;
+    padding: 5mm; border: 1px solid #ffe0d6;
+  }
+  .analogy-box p { font-size: 9pt; line-height: 1.6; color: #444; }
+  .analogy-box .highlight { color: #ff6b35; font-weight: 600; }
+  .right-col {
+    flex: 1; display: flex; flex-direction: column; gap: 5mm;
+  }
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3mm;
+  }
+  .why-card {
+    background: #fafafa; border-radius: 2.5mm;
+    padding: 4mm; border-top: 2px solid #ff6b35;
+  }
+  .why-card h3 {
+    font-size: 8pt; font-weight: 700; color: #1a1a1a; margin-bottom: 1.5mm;
+  }
+  .why-card p { font-size: 7.5pt; color: #666; line-height: 1.5; }
+  .tips-section {
+    background: #1a1a1a; border-radius: 3mm;
+    padding: 5mm; color: #fff; flex: 1;
+  }
+  .tips-section .section-title { color: #ff6b35; margin-bottom: 3mm; }
+  .tip-item { display: flex; align-items: flex-start; margin-bottom: 2.5mm; }
+  .tip-num {
+    width: 5mm; height: 5mm; background: #ff6b35;
+    border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 7pt; font-weight: 700; flex-shrink: 0;
+    margin-right: 2.5mm; margin-top: 0.5mm;
+  }
+  .tip-text { font-size: 8pt; line-height: 1.45; color: #ddd; }
+  .tip-text strong { color: #fff; font-weight: 600; }
+  .footer {
+    margin-top: 4mm; display: flex;
+    justify-content: space-between; align-items: center;
+    font-size: 7pt; color: #aaa;
+    border-top: 0.5px solid #eee; padding-top: 3mm;
+  }
+  .footer-left { font-style: italic; }
+  .footer-right { font-weight: 500; color: #ff6b35; }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="title-group">
+      <div class="tag">认知科学 · 信息图</div>
+      <h1>工作记忆就像 CPU 缓存</h1>
+      <div class="subtitle">一个理解大脑如何学习的极简模型 · 可打印学习海报</div>
+    </div>
+    <div class="logo-area">COGNITIVE<br>VISUAL</div>
+  </div>
+  <div class="main">
+    <div class="left-col">
+      <div class="section-title">The Analogy</div>
+      <div class="cache-visual">
+        <div class="cache-tier">
+          <div class="tier-bar tier-l1">L1 Cache</div>
+          <div class="tier-label"><strong>工作记忆</strong> · 4±1 个组块 · 毫秒级访问</div>
+        </div>
+        <div class="cache-tier">
+          <div class="tier-bar tier-l2">L2 Cache</div>
+          <div class="tier-label"><strong>近期记忆</strong> · 刚处理过的信息 · 秒级留存</div>
+        </div>
+        <div class="cache-tier">
+          <div class="tier-bar tier-ram">RAM</div>
+          <div class="tier-label"><strong>长期记忆</strong> · 无限容量 · 需主动调取</div>
+        </div>
+      </div>
+      <div class="analogy-box">
+        <p>CPU 不会直接从硬盘读取数据，而是依赖<span class="highlight">多级缓存</span>。你的大脑也一样：真正用于思考的不是长期记忆，而是容量极其有限的工作记忆。<br><br>当缓存溢出，就会发生<span class="highlight">"缓存未命中"</span>——你感到困惑、走神、无法理解。这不是你笨，是架构限制。</p>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="section-title">Why It Matters</div>
+      <div class="why-grid">
+        <div class="why-card">
+          <h3>🧩 组块化</h3>
+          <p>把零散信息压缩成"组块"，就像把多个文件打包成 zip。专家与新手的差距，本质是组块的大小。</p>
+        </div>
+        <div class="why-card">
+          <h3>⏱️ 间隔重复</h3>
+          <p>不是一次性塞满，而是让缓存"预热"。间隔提取比连续阅读效率高 2-3 倍。</p>
+        </div>
+        <div class="why-card">
+          <h3>🎯 单一任务</h3>
+          <p>多任务切换的代价极高——每次切换都是一次缓存清空。专注是性能优化。</p>
+        </div>
+        <div class="why-card">
+          <h3>🔗 建立连接</h3>
+          <p>新知识必须"挂载"到已有缓存上。孤立的信息会被立即丢弃。</p>
+        </div>
+      </div>
+      <div class="tips-section">
+        <div class="section-title">Actionable Tips</div>
+        <div class="tip-item">
+          <div class="tip-num">1</div>
+          <div class="tip-text"><strong>一次只给一个指令</strong>——对小孩、对同事、对自己。多步骤任务要拆解。</div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">2</div>
+          <div class="tip-text"><strong>先建立框架，再填细节</strong>——大纲是 L1 缓存里的路标，防止信息淹没。</div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">3</div>
+          <div class="tip-text"><strong>用已知的比喻讲新知</strong>——"就像..."不是在偷懒，是在帮大脑建立缓存映射。</div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">4</div>
+          <div class="tip-text"><strong>允许发呆和走神</strong>——缓存清理是必要过程，强迫持续专注反而会降低命中率。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-left">"Memory is the residue of thought." — Daniel Willingham</div>
+    <div class="footer-right">COGNITIVE VISUAL LAB · 01</div>
+  </div>
+</div>
+</body>
+</html>
