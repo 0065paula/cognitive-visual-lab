@@ -169,6 +169,11 @@ body.lang-en [data-lang="en"] { display: block; }
   height: 100%;
   object-fit: cover;
   object-position: top;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-preview img {
+  transform: scale(1.03);
 }
 
 .product-info {
@@ -309,8 +314,8 @@ footer .ornament {
     </h1>
     <p class="subtitle" data-lang="zh">把复杂的认知科学，变成一看就懂的视觉语言</p>
     <p class="subtitle" data-lang="en">Transforming complex cognitive science into visual language</p>
-    <p class="tagline" data-lang="zh">可打印信息图 · 学习海报 · 知识卡片</p>
-    <p class="tagline" data-lang="en">Printable Infographics · Study Posters · Knowledge Cards</p>
+    <p class="tagline" data-lang="zh">移动版知识卡片 · 随时查阅 · 免费下载</p>
+    <p class="tagline" data-lang="en">Mobile Knowledge Cards · Always Available · Free Download</p>
   </header>
 
   <div class="lang-bar">
@@ -321,7 +326,10 @@ footer .ornament {
   <section class="products">
     <!-- Product 01 -->
     <article class="product-card">
-      <div class="product-preview">⚡</div>
+      <div class="product-preview">
+        <img data-lang="zh" src="products/01-working-memory/assets/mobile-cn.png" alt="工作记忆就像 CPU 缓存">
+        <img data-lang="en" src="products/01-working-memory/assets/mobile-en.png" alt="Working Memory as CPU Cache">
+      </div>
       <div class="product-info">
         <div class="product-num">PRODUCT 01</div>
         <h2 class="product-title" data-lang="zh">工作记忆就像 CPU 缓存</h2>
@@ -331,19 +339,23 @@ footer .ornament {
         <p class="product-desc" data-lang="zh">用程序员熟悉的缓存类比，解释大脑信息处理的瓶颈与优化策略。</p>
         <p class="product-desc" data-lang="en">An analogy familiar to programmers, explaining the bottleneck and optimization of brain information processing.</p>
         <div class="product-actions">
-          <a href="products/01-working-memory/index.html" class="btn btn-primary" data-lang="zh">👁️ 预览</a>
-          <a href="products/01-working-memory/index.html" class="btn btn-primary" data-lang="en">👁️ Preview</a>
-          <a href="products/01-working-memory/assets/poster-cn.pdf" class="btn btn-secondary" data-lang="zh">📄 PDF</a>
-          <a href="products/01-working-memory/assets/poster-en.pdf" class="btn btn-secondary" data-lang="en">📄 PDF</a>
-          <span class="badge-done" data-lang="zh">已完成</span>
-          <span class="badge-done" data-lang="en">Done</span>
+          <a href="products/01-working-memory/mobile.html" class="btn btn-primary" data-lang="zh">👁️ 网页查看</a>
+          <a href="products/01-working-memory/mobile.html" class="btn btn-primary" data-lang="en">👁️ View</a>
+          <a href="products/01-working-memory/assets/mobile-cn.png" class="btn btn-secondary" data-lang="zh" download>📱 中文版</a>
+          <a href="products/01-working-memory/assets/mobile-cn.png" class="btn btn-secondary" data-lang="en" download>📱 Chinese</a>
+          <a href="products/01-working-memory/assets/mobile-en.png" class="btn btn-secondary" data-lang="zh" download>📱 英文版</a>
+          <a href="products/01-working-memory/assets/mobile-en.png" class="btn btn-secondary" data-lang="en" download>📱 English</a>
+          <span class="badge-free">FREE</span>
         </div>
       </div>
     </article>
 
     <!-- Product 02 -->
     <article class="product-card">
-      <div class="product-preview">⏱️</div>
+      <div class="product-preview">
+        <img data-lang="zh" src="products/02-spaced-repetition/assets/mobile-cn.png" alt="间隔重复">
+        <img data-lang="en" src="products/02-spaced-repetition/assets/mobile-en.png" alt="Spaced Repetition">
+      </div>
       <div class="product-info">
         <div class="product-num">PRODUCT 02</div>
         <h2 class="product-title" data-lang="zh">间隔重复</h2>
@@ -353,19 +365,23 @@ footer .ornament {
         <p class="product-desc" data-lang="zh">对抗遗忘的唯一科学策略。艾宾浩斯曲线可视化。</p>
         <p class="product-desc" data-lang="en">The only scientifically proven strategy against forgetting. Ebbinghaus curve visualization.</p>
         <div class="product-actions">
-          <a href="products/02-spaced-repetition/index.html" class="btn btn-primary" data-lang="zh">👁️ 预览</a>
-          <a href="products/02-spaced-repetition/index.html" class="btn btn-primary" data-lang="en">👁️ Preview</a>
-          <a href="products/02-spaced-repetition/assets/poster-cn.pdf" class="btn btn-secondary" data-lang="zh">📄 PDF</a>
-          <a href="products/02-spaced-repetition/assets/poster-en.pdf" class="btn btn-secondary" data-lang="en">📄 PDF</a>
-          <span class="badge-done" data-lang="zh">已完成 ★9.2</span>
-          <span class="badge-done" data-lang="en">Done ★9.2</span>
+          <a href="products/02-spaced-repetition/mobile.html" class="btn btn-primary" data-lang="zh">👁️ 网页查看</a>
+          <a href="products/02-spaced-repetition/mobile.html" class="btn btn-primary" data-lang="en">👁️ View</a>
+          <a href="products/02-spaced-repetition/assets/mobile-cn.png" class="btn btn-secondary" data-lang="zh" download>📱 中文版</a>
+          <a href="products/02-spaced-repetition/assets/mobile-cn.png" class="btn btn-secondary" data-lang="en" download>📱 Chinese</a>
+          <a href="products/02-spaced-repetition/assets/mobile-en.png" class="btn btn-secondary" data-lang="zh" download>📱 英文版</a>
+          <a href="products/02-spaced-repetition/assets/mobile-en.png" class="btn btn-secondary" data-lang="en" download>📱 English</a>
+          <span class="badge-free">FREE</span>
         </div>
       </div>
     </article>
 
     <!-- Product 03 -->
     <article class="product-card">
-      <div class="product-preview">🧩</div>
+      <div class="product-preview">
+        <img data-lang="zh" src="products/03-chunking/assets/mobile-cn.png" alt="组块化">
+        <img data-lang="en" src="products/03-chunking/assets/mobile-en.png" alt="Chunking">
+      </div>
       <div class="product-info">
         <div class="product-num">PRODUCT 03</div>
         <h2 class="product-title" data-lang="zh">组块化</h2>
@@ -375,19 +391,23 @@ footer .ornament {
         <p class="product-desc" data-lang="zh">专家与新手的差距，本质上是组块大小的差距。大脑的压缩算法。</p>
         <p class="product-desc" data-lang="en">The gap between experts and novices is the size of their chunks. The brain's compression algorithm.</p>
         <div class="product-actions">
-          <a href="products/03-chunking/index.html" class="btn btn-primary" data-lang="zh">👁️ 预览</a>
-          <a href="products/03-chunking/index.html" class="btn btn-primary" data-lang="en">👁️ Preview</a>
-          <a href="products/03-chunking/assets/poster-cn.pdf" class="btn btn-secondary" data-lang="zh">📄 PDF</a>
-          <a href="products/03-chunking/assets/poster-en.pdf" class="btn btn-secondary" data-lang="en">📄 PDF</a>
-          <span class="badge-done" data-lang="zh">已完成</span>
-          <span class="badge-done" data-lang="en">Done</span>
+          <a href="products/03-chunking/mobile.html" class="btn btn-primary" data-lang="zh">👁️ 网页查看</a>
+          <a href="products/03-chunking/mobile.html" class="btn btn-primary" data-lang="en">👁️ View</a>
+          <a href="products/03-chunking/assets/mobile-cn.png" class="btn btn-secondary" data-lang="zh" download>📱 中文版</a>
+          <a href="products/03-chunking/assets/mobile-cn.png" class="btn btn-secondary" data-lang="en" download>📱 Chinese</a>
+          <a href="products/03-chunking/assets/mobile-en.png" class="btn btn-secondary" data-lang="zh" download>📱 英文版</a>
+          <a href="products/03-chunking/assets/mobile-en.png" class="btn btn-secondary" data-lang="en" download>📱 English</a>
+          <span class="badge-free">FREE</span>
         </div>
       </div>
     </article>
 
     <!-- Product 04 -->
     <article class="product-card">
-      <div class="product-preview">🎚️</div>
+      <div class="product-preview">
+        <img data-lang="zh" src="products/04-cognitive-load/assets/mobile-cn.png" alt="认知负荷">
+        <img data-lang="en" src="products/04-cognitive-load/assets/mobile-en.png" alt="Cognitive Load">
+      </div>
       <div class="product-info">
         <div class="product-num">PRODUCT 04</div>
         <h2 class="product-title" data-lang="zh">认知负荷</h2>
@@ -395,21 +415,25 @@ footer .ornament {
         <p class="product-title-en" data-lang="zh">Cognitive Load</p>
         <p class="product-title-en" data-lang="en">认知负荷</p>
         <p class="product-desc" data-lang="zh">大脑的带宽管理。为什么同时处理太多信息会让学习「宕机」。</p>
-        <p class="product-desc" data-lang="en">The brain's bandwidth management. Why too much information at once makes learning "freeze."</p>
+        <p class="product-desc" data-lang="en">The brain's bandwidth management. Why too much information at once makes learning freeze.</p>
         <div class="product-actions">
-          <a href="products/04-cognitive-load/index.html" class="btn btn-primary" data-lang="zh">👁️ 预览</a>
-          <a href="products/04-cognitive-load/index.html" class="btn btn-primary" data-lang="en">👁️ Preview</a>
-          <a href="products/04-cognitive-load/assets/poster-cn.pdf" class="btn btn-secondary" data-lang="zh">📄 PDF</a>
-          <a href="products/04-cognitive-load/assets/poster-en.pdf" class="btn btn-secondary" data-lang="en">📄 PDF</a>
-          <span class="badge-done" data-lang="zh">已完成</span>
-          <span class="badge-done" data-lang="en">Done</span>
+          <a href="products/04-cognitive-load/mobile.html" class="btn btn-primary" data-lang="zh">👁️ 网页查看</a>
+          <a href="products/04-cognitive-load/mobile.html" class="btn btn-primary" data-lang="en">👁️ View</a>
+          <a href="products/04-cognitive-load/assets/mobile-cn.png" class="btn btn-secondary" data-lang="zh" download>📱 中文版</a>
+          <a href="products/04-cognitive-load/assets/mobile-cn.png" class="btn btn-secondary" data-lang="en" download>📱 Chinese</a>
+          <a href="products/04-cognitive-load/assets/mobile-en.png" class="btn btn-secondary" data-lang="zh" download>📱 英文版</a>
+          <a href="products/04-cognitive-load/assets/mobile-en.png" class="btn btn-secondary" data-lang="en" download>📱 English</a>
+          <span class="badge-free">FREE</span>
         </div>
       </div>
     </article>
 
     <!-- Product 05 -->
     <article class="product-card">
-      <div class="product-preview">🌊</div>
+      <div class="product-preview">
+        <img data-lang="zh" src="products/05-flow/assets/mobile-cn.png" alt="心流">
+        <img data-lang="en" src="products/05-flow/assets/mobile-en.png" alt="Flow">
+      </div>
       <div class="product-info">
         <div class="product-num">PRODUCT 05</div>
         <h2 class="product-title" data-lang="zh">心流</h2>
@@ -419,19 +443,23 @@ footer .ornament {
         <p class="product-desc" data-lang="zh">当挑战与技能完美匹配时，时间消失，自我消融。最佳体验的科学。</p>
         <p class="product-desc" data-lang="en">When challenge perfectly matches skill, time vanishes, self dissolves. The science of optimal experience.</p>
         <div class="product-actions">
-          <a href="products/05-flow/index.html" class="btn btn-primary" data-lang="zh">👁️ 预览</a>
-          <a href="products/05-flow/index.html" class="btn btn-primary" data-lang="en">👁️ Preview</a>
-          <a href="products/05-flow/assets/poster-cn.pdf" class="btn btn-secondary" data-lang="zh">📄 PDF</a>
-          <a href="products/05-flow/assets/poster-en.pdf" class="btn btn-secondary" data-lang="en">📄 PDF</a>
-          <span class="badge-done" data-lang="zh">已完成</span>
-          <span class="badge-done" data-lang="en">Done</span>
+          <a href="products/05-flow/mobile.html" class="btn btn-primary" data-lang="zh">👁️ 网页查看</a>
+          <a href="products/05-flow/mobile.html" class="btn btn-primary" data-lang="en">👁️ View</a>
+          <a href="products/05-flow/assets/mobile-cn.png" class="btn btn-secondary" data-lang="zh" download>📱 中文版</a>
+          <a href="products/05-flow/assets/mobile-cn.png" class="btn btn-secondary" data-lang="en" download>📱 Chinese</a>
+          <a href="products/05-flow/assets/mobile-en.png" class="btn btn-secondary" data-lang="zh" download>📱 英文版</a>
+          <a href="products/05-flow/assets/mobile-en.png" class="btn btn-secondary" data-lang="en" download>📱 English</a>
+          <span class="badge-free">FREE</span>
         </div>
       </div>
     </article>
 
     <!-- Product 06 -->
     <article class="product-card">
-      <div class="product-preview">🧠</div>
+      <div class="product-preview">
+        <img data-lang="zh" src="products/06-retrieval-practice/assets/mobile-cn.png" alt="提取练习">
+        <img data-lang="en" src="products/06-retrieval-practice/assets/mobile-en.png" alt="Retrieval Practice">
+      </div>
       <div class="product-info">
         <div class="product-num">PRODUCT 06</div>
         <h2 class="product-title" data-lang="zh">提取练习</h2>
@@ -441,19 +469,23 @@ footer .ornament {
         <p class="product-desc" data-lang="zh">「考自己」比「重读」效果好得多。主动回忆是已知最有效的学习策略。</p>
         <p class="product-desc" data-lang="en">Testing yourself beats re-reading by 2×. Active recall is the most effective known learning strategy.</p>
         <div class="product-actions">
-          <a href="products/06-retrieval-practice/index.html" class="btn btn-primary" data-lang="zh">👁️ 预览</a>
-          <a href="products/06-retrieval-practice/index.html" class="btn btn-primary" data-lang="en">👁️ Preview</a>
-          <a href="products/06-retrieval-practice/assets/poster-cn.pdf" class="btn btn-secondary" data-lang="zh">📄 PDF</a>
-          <a href="products/06-retrieval-practice/assets/poster-en.pdf" class="btn btn-secondary" data-lang="en">📄 PDF</a>
-          <span class="badge-done" data-lang="zh">已完成</span>
-          <span class="badge-done" data-lang="en">Done</span>
+          <a href="products/06-retrieval-practice/mobile.html" class="btn btn-primary" data-lang="zh">👁️ 网页查看</a>
+          <a href="products/06-retrieval-practice/mobile.html" class="btn btn-primary" data-lang="en">👁️ View</a>
+          <a href="products/06-retrieval-practice/assets/mobile-cn.png" class="btn btn-secondary" data-lang="zh" download>📱 中文版</a>
+          <a href="products/06-retrieval-practice/assets/mobile-cn.png" class="btn btn-secondary" data-lang="en" download>📱 Chinese</a>
+          <a href="products/06-retrieval-practice/assets/mobile-en.png" class="btn btn-secondary" data-lang="zh" download>📱 英文版</a>
+          <a href="products/06-retrieval-practice/assets/mobile-en.png" class="btn btn-secondary" data-lang="en" download>📱 English</a>
+          <span class="badge-free">FREE</span>
         </div>
       </div>
     </article>
 
     <!-- Product 07 -->
     <article class="product-card">
-      <div class="product-preview">🔮</div>
+      <div class="product-preview">
+        <img data-lang="zh" src="products/07-metacognition/assets/mobile-cn.png" alt="元认知">
+        <img data-lang="en" src="products/07-metacognition/assets/mobile-en.png" alt="Metacognition">
+      </div>
       <div class="product-info">
         <div class="product-num">PRODUCT 07</div>
         <h2 class="product-title" data-lang="zh">元认知</h2>
@@ -463,15 +495,17 @@ footer .ornament {
         <p class="product-desc" data-lang="zh">关于思考的思考。知道自己知道什么、不知道什么，以及如何改进。</p>
         <p class="product-desc" data-lang="en">Thinking about thinking. Knowing what you know, what you don't, and how to improve.</p>
         <div class="product-actions">
-          <a href="products/07-metacognition/index.html" class="btn btn-primary" data-lang="zh">👁️ 预览</a>
-          <a href="products/07-metacognition/index.html" class="btn btn-primary" data-lang="en">👁️ Preview</a>
-          <a href="products/07-metacognition/assets/poster-cn.pdf" class="btn btn-secondary" data-lang="zh">📄 PDF</a>
-          <a href="products/07-metacognition/assets/poster-en.pdf" class="btn btn-secondary" data-lang="en">📄 PDF</a>
-          <span class="badge-done" data-lang="zh">已完成</span>
-          <span class="badge-done" data-lang="en">Done</span>
+          <a href="products/07-metacognition/mobile.html" class="btn btn-primary" data-lang="zh">👁️ 网页查看</a>
+          <a href="products/07-metacognition/mobile.html" class="btn btn-primary" data-lang="en">👁️ View</a>
+          <a href="products/07-metacognition/assets/mobile-cn.png" class="btn btn-secondary" data-lang="zh" download>📱 中文版</a>
+          <a href="products/07-metacognition/assets/mobile-cn.png" class="btn btn-secondary" data-lang="en" download>📱 Chinese</a>
+          <a href="products/07-metacognition/assets/mobile-en.png" class="btn btn-secondary" data-lang="zh" download>📱 英文版</a>
+          <a href="products/07-metacognition/assets/mobile-en.png" class="btn btn-secondary" data-lang="en" download>📱 English</a>
+          <span class="badge-free">FREE</span>
         </div>
       </div>
     </article>
+
   </section>
 
   <footer>

@@ -1,11 +1,8 @@
 #!/usr/bin/env node
 /**
- * Batch generate all assets for a product:
- * - poster-cn.pdf (A4 landscape, Chinese)
- * - poster-en.pdf (A4 landscape, English)
+ * Batch generate mobile assets for a product:
  * - mobile-cn.png (430px portrait, Chinese)
  * - mobile-en.png (430px portrait, English)
- * - mobile.html (simplified mobile HTML)
  */
 
 const { chromium } = require('playwright');
@@ -27,32 +24,6 @@ async function generateProduct(productDir) {
 
   const browser = await chromium.launch({ headless: true });
   const fileUrl = 'file://' + path.resolve(indexPath);
-
-  // Generate poster-cn.pdf
-  {
-    const page = await browser.newPage();
-    await page.goto(fileUrl, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1000);
-    const output = path.join(assetsDir, 'poster-cn.pdf');
-    await page.pdf({ path: output, width: '297mm', height: '210mm', printBackground: true, preferCSSPageSize: true });
-    const stats = fs.statSync(output);
-    console.log(`  ✅ poster-cn.pdf (${(stats.size/1024).toFixed(1)} KB)`);
-    await page.close();
-  }
-
-  // Generate poster-en.pdf
-  {
-    const page = await browser.newPage();
-    await page.goto(fileUrl, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1000);
-    await page.evaluate(() => { document.body.classList.add('lang-en'); });
-    await page.waitForTimeout(500);
-    const output = path.join(assetsDir, 'poster-en.pdf');
-    await page.pdf({ path: output, width: '297mm', height: '210mm', printBackground: true, preferCSSPageSize: true });
-    const stats = fs.statSync(output);
-    console.log(`  ✅ poster-en.pdf (${(stats.size/1024).toFixed(1)} KB)`);
-    await page.close();
-  }
 
   // Generate mobile-cn.png
   {
