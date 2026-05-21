@@ -8,34 +8,34 @@
 
 ## 产品目录（7/7 已完成）
 
-| # | 概念 | 状态 | 预览 | PDF（中） | PDF（英） |
-|---|------|------|------|-----------|-----------|
-| 01 | 工作记忆就像 CPU 缓存 | ✅ 已完成 | [预览](products/01-working-memory/index.html) | [PDF](products/01-working-memory/assets/poster-cn.pdf) | [PDF](products/01-working-memory/assets/poster-en.pdf) |
-| 02 | 间隔重复 | ✅ 已完成 ★9.2 | [预览](products/02-spaced-repetition/index.html) | [PDF](products/02-spaced-repetition/assets/poster-cn.pdf) | [PDF](products/02-spaced-repetition/assets/poster-en.pdf) |
-| 03 | 组块化 | ✅ 已完成 | [预览](products/03-chunking/index.html) | [PDF](products/03-chunking/assets/poster-cn.pdf) | [PDF](products/03-chunking/assets/poster-en.pdf) |
-| 04 | 认知负荷 | ✅ 已完成 | [预览](products/04-cognitive-load/index.html) | [PDF](products/04-cognitive-load/assets/poster-cn.pdf) | [PDF](products/04-cognitive-load/assets/poster-en.pdf) |
-| 05 | 心流 | ✅ 已完成 | [预览](products/05-flow/index.html) | [PDF](products/05-flow/assets/poster-cn.pdf) | [PDF](products/05-flow/assets/poster-en.pdf) |
-| 06 | 提取练习 | ✅ 已完成 | [预览](products/06-retrieval-practice/index.html) | [PDF](products/06-retrieval-practice/assets/poster-cn.pdf) | [PDF](products/06-retrieval-practice/assets/poster-en.pdf) |
-| 07 | 元认知 | ✅ 已完成 | [预览](products/07-metacognition/index.html) | [PDF](products/07-metacognition/assets/poster-cn.pdf) | [PDF](products/07-metacognition/assets/poster-en.pdf) |
+| # | 概念 | 状态 | 网页版 | 中文版 | English |
+|---|------|------|--------|--------|---------|
+| 01 | 工作记忆就像 CPU 缓存 | ✅ 已完成 | [预览](products/01-working-memory/index.html) | [📱 中文](products/01-working-memory/assets/mobile-cn.png) | [📱 EN](products/01-working-memory/assets/mobile-en.png) |
+| 02 | 间隔重复 | ✅ 已完成 ★9.2 | [预览](products/02-spaced-repetition/index.html) | [📱 中文](products/02-spaced-repetition/assets/mobile-cn.png) | [📱 EN](products/02-spaced-repetition/assets/mobile-en.png) |
+| 03 | 组块化 | ✅ 已完成 | [预览](products/03-chunking/index.html) | [📱 中文](products/03-chunking/assets/mobile-cn.png) | [📱 EN](products/03-chunking/assets/mobile-en.png) |
+| 04 | 认知负荷 | ✅ 已完成 | [预览](products/04-cognitive-load/index.html) | [📱 中文](products/04-cognitive-load/assets/mobile-cn.png) | [📱 EN](products/04-cognitive-load/assets/mobile-en.png) |
+| 05 | 心流 | ✅ 已完成 | [预览](products/05-flow/index.html) | [📱 中文](products/05-flow/assets/mobile-cn.png) | [📱 EN](products/05-flow/assets/mobile-en.png) |
+| 06 | 提取练习 | ✅ 已完成 | [预览](products/06-retrieval-practice/index.html) | [📱 中文](products/06-retrieval-practice/assets/mobile-cn.png) | [📱 EN](products/06-retrieval-practice/assets/mobile-en.png) |
+| 07 | 元认知 | ✅ 已完成 | [预览](products/07-metacognition/index.html) | [📱 中文](products/07-metacognition/assets/mobile-cn.png) | [📱 EN](products/07-metacognition/assets/mobile-en.png) |
 
 ## 每张产品包含
 
-- 📄 **横版海报**（A4 横向，297×210mm）— 可打印
-- 📱 **手机版**（430px 竖屏）— 随时查看
-- 🇨🇳 **中文版** + 🇬🇧 **英文版** — 双语切换
+- 📱 **移动版**（430px 竖屏，PNG）— 随时查看、保存分享
+- 🌐 **网页版** — 桌面端完整体验，双语切换
+- 🇨🇳 **中文版** + 🇬🇧 **英文版** — 双语独立输出
 - 🔗 **学术引用** — 脚注附参考文献与推荐书目
 
 ## 设计系统
 
 - **风格**: 博物学家插图风格（19 世纪科学图鉴风格）
 - **配色**: 羊皮纸底 `#F7F3EB` + 深褐字 `#2C2416` + 森林绿强调 `#4A6741`
-- **版式**: A4 横向 (297×210mm)，可打印
+- **版式**: 桌面横版 + 移动竖版双输出
 - **字体**: Noto Serif SC + Helvetica Neue
 
 ## 技术栈
 
 - 纯 HTML/CSS，零依赖
-- Playwright 批量 PDF + 手机截图生成
+- Playwright 批量移动截图生成
 - GitHub Pages 自动部署
 
 ## 团队
