@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 07 · 元认知 | Metacognition</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #f7f3eb;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --gold: #8B4513;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+  body {
+    font-family: "Noto Serif SC", Georgia, serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    padding: 20px 16px;
+    line-height: 1.6;
+  }
+  .header {
+    text-align: center;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .series-label {
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 8px;
+  }
+  h1 { font-size: 22px; font-weight: 400; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--sepia-light); font-style: italic; }
+
+  .section { margin-bottom: 24px; }
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bronze);
+    margin-bottom: 12px;
+    border-left: 3px solid var(--bronze);
+    padding-left: 8px;
+  }
+
+  .loop-diagram {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 16px 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .loop-box {
+    padding: 8px 10px;
+    border: 1px solid var(--rule);
+    font-size: 11px;
+    text-align: center;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+    color: var(--sepia-light);
+  }
+  .loop-box.active {
+    background: rgba(74, 103, 65, 0.1);
+    border-color: var(--bronze);
+    color: var(--sepia);
+    font-weight: 700;
+  }
+  .loop-arrow {
+    font-size: 12pt;
+    color: var(--bronze-light);
+  }
+
+  .obs-item, .method-item {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .obs-num, .method-num {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .item-text { font-size: 13px; color: var(--sepia-light); line-height: 1.5; }
+  .item-text strong { color: var(--sepia); }
+
+  .references {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    font-size: 11px;
+    color: var(--sepia-light);
+    line-height: 1.5;
+  }
+  .references strong { color: var(--bronze); }
+
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 11px;
+    color: var(--bronze-light);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="series-label">Cognitive Visual Lab · Plate 07</div>
+    <h1>元认知：大脑的仪表盘</h1>
+    <p class="subtitle">关于思考的思考——知道自己知道什么、不知道什么，以及如何改进</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">元认知回路</div>
+    <div class="loop-diagram">
+      <div class="loop-box">计划<br><span style="font-size:9px;">设定目标</span></div>
+      <span class="loop-arrow">→</span>
+      <div class="loop-box">监控<br><span style="font-size:9px;">实时评估</span></div>
+      <span class="loop-arrow">→</span>
+      <div class="loop-box active">调节<br><span style="font-size:9px;">调整策略</span></div>
+      <span class="loop-arrow">→</span>
+      <div class="loop-box">评估<br><span style="font-size:9px;">复盘结果</span></div>
+    </div>
+    <p style="font-size: 12px; color: var(--sepia-light); line-height: 1.5;">
+      <strong>核心洞察：</strong>元认知就像恒温器——它不断监测「理解温度」，当发现偏差时自动调节策略。低元认知学习者反复用同一种方法失败；高元认知学习者能迅速切换策略。
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">四个观察</div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 1</div>
+      <div class="item-text"><strong>邓宁-克鲁格效应</strong>——能力最低的人往往最自信（Dunning et al., 2003）。因为元认知能力本身需要知识支撑：你越不懂，你越不知道自己不懂。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 2</div>
+      <div class="item-text"><strong>解释深度的幻觉</strong>——大多数人以为自己理解自行车、拉链或锁的工作原理，直到被要求逐步解释（Rozenblit & Keil, 2002）。「熟悉」不等于「理解」。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 3</div>
+      <div class="item-text"><strong>校准能力是学习的预测器</strong>——能准确预测自己考试表现的学生，成绩普遍更好（Dunlosky & Rawson, 2012）。校准偏差超过 20% 的学生，即使投入同样时间，成绩也显著更低。</div>
+    </div>
+    <div class="obs-item">
+      <div class="obs-num">Obs. 4</div>
+      <div class="item-text"><strong>元认知策略是专家与新手的分水岭</strong>——专家不仅知识更多，更重要的是他们更清楚自己何时理解、何时不理解。遇到障碍时，专家会后退、重组、寻找替代路径。</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">五个方法</div>
+    <div class="method-item">
+      <div class="method-num">Method 1</div>
+      <div class="item-text"><strong>学习前先做预测</strong>——翻开一章前，先问自己「我认为这一章有 3 个还是 8 个核心概念？」学习结束后对比实际数量。这个「预测-验证」循环能显著提升元认知校准。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 2</div>
+      <div class="item-text"><strong>自我解释</strong>——每读完一段，问自己「为什么是这样？」「这和之前学过的什么有关？」自我解释让隐藏的理解漏洞浮出水面。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 3</div>
+      <div class="item-text"><strong>错题分析，而非错题订正</strong>——做错题后，分析「我为什么错？」「我的思路卡在哪一步？」把错题变成元认知的训练数据。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 4</div>
+      <div class="item-text"><strong>出声思考</strong>——在解题时把脑中的想法说出来。这强迫你把模糊直觉变成明确语言，一旦发现语言卡壳，就说明理解有漏洞。</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">Method 5</div>
+      <div class="item-text"><strong>每周学习复盘日记</strong>——每周用 10 分钟回答三个问题：「这周我学了什么？」「哪些方法有效/无效？」「下周我要调整什么？」</div>
+    </div>
+  </div>
+
+  <div class="references">
+    <strong>📚 参考文献</strong><br>
+    Flavell (1979). Metacognition and cognitive monitoring. <i>American Psychologist</i>, 34(10), 906-911.<br>
+    Dunning et al. (2003). Why people fail to recognize their own incompetence. <i>Current Directions in Psychological Science</i>, 12(3), 83-87.<br>
+    Rozenblit & Keil (2002). The misunderstood limits of folk science. <i>Cognitive Science</i>, 26(5), 521-562.<br>
+    Dunlosky & Rawson (2012). Overconfidence produces underachievement. <i>Learning and Instruction</i>, 22(4), 271-280.
+    <br><br>
+    <strong>📖 推荐书籍</strong><br>
+    《为什么学生不喜欢上学？》Daniel Willingham | 《认知天性》Brown, Roediger & McDaniel
+  </div>
+
+  <div class="footer">
+    "The unexamined life is not worth living." — Socrates<br>
+    Cognitive Visual Lab · Plate 07
+  </div>
+</body>
+</html>

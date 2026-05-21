@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 07 · 元认知 | Metacognition</title>
+<style>
+  @page { size: A4 landscape; margin: 12mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #f7f3eb;
+    --parchment-dark: #ede8dd;
+    --sepia: #2C2416;
+    --sepia-light: #5C4F3D;
+    --bronze: #4A6741;
+    --bronze-light: #9A8B7A;
+    --gold: #8B4513;
+    --rule: #C4B8A8;
+    --rule-light: #e8e4dc;
+  }
+  body {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", Georgia, "Times New Roman", serif;
+    background: var(--parchment);
+    color: var(--sepia);
+    width: 297mm;
+    height: 210mm;
+    overflow: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+  .plate {
+    width: 100%; height: 100%;
+    padding: 10mm 14mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .plate::before {
+    content: "";
+    position: absolute;
+    top: 6mm; left: 6mm; right: 6mm; bottom: 6mm;
+    border: 1px solid var(--rule);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .plate::after {
+    content: "";
+    position: absolute;
+    top: 7mm; left: 7mm; right: 7mm; bottom: 7mm;
+    border: 0.5px solid var(--rule-light);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .lang-toggle {
+    position: absolute;
+    top: 9mm; right: 10mm;
+    z-index: 10;
+    display: flex; gap: 0;
+    border: 1px solid var(--bronze);
+    border-radius: 2px;
+    overflow: hidden;
+    font-family: -apple-system, sans-serif;
+    font-size: 8pt;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    padding: 2mm 4mm;
+    cursor: pointer;
+    color: var(--bronze);
+    font-size: 8pt;
+    letter-spacing: 0.5pt;
+  }
+  .lang-toggle button.active {
+    background: var(--bronze);
+    color: white;
+  }
+  [data-lang] { display: none; }
+  [data-lang="zh"] { display: block; }
+  body.lang-en [data-lang="zh"] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
+
+  .header {
+    text-align: center;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .header::after {
+    content: '❧';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--parchment);
+    padding: 0 12px;
+    color: var(--bronze);
+    font-size: 14px;
+  }
+  .series-label {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 6px;
+  }
+  .title {
+    font-size: 26pt;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+  .title-en {
+    display: block;
+    font-size: 11pt;
+    color: var(--bronze-light);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  .subtitle {
+    font-size: 9pt;
+    color: var(--sepia-light);
+    margin-top: 6px;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .main {
+    flex: 1;
+    display: flex;
+    gap: 10mm;
+    margin-top: 8px;
+    min-height: 0;
+  }
+  .left-col {
+    flex: 1.05;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .right-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .section-num {
+    font-family: "Courier New", monospace;
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .section-title {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sepia);
+  }
+  .panel {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    position: relative;
+  }
+  .panel::before {
+    content: "";
+    position: absolute;
+    top: 3px; left: 3px; right: 3px; bottom: 3px;
+    border: 0.5px dashed var(--rule-light);
+    pointer-events: none;
+  }
+  .fig-label {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 11px;
+    color: var(--bronze-light);
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+
+  /* THERMOSTAT VISUAL */
+  .thermostat-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 8px 0;
+  }
+  .thermo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .thermo-box {
+    width: 70px;
+    height: 50px;
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 7pt;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+    color: var(--sepia-light);
+    text-align: center;
+    padding: 2px;
+  }
+  .thermo-box.highlight {
+    background: rgba(74, 103, 65, 0.1);
+    border-color: var(--bronze);
+  }
+  .thermo-arrow {
+    font-size: 14pt;
+    color: var(--bronze-light);
+  }
+  .thermo-label {
+    font-size: 7pt;
+    font-weight: 700;
+    color: var(--sepia);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+
+  .obs-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px dotted var(--rule-light);
+  }
+  .obs-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .obs-num {
+    font-family: "Courier New", monospace;
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 24px;
+  }
+  .obs-text {
+    font-size: 8pt;
+    line-height: 1.5;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .obs-text strong {
+    color: var(--sepia);
+    font-weight: 600;
+  }
+  .method-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px dotted var(--rule-light);
+    align-items: flex-start;
+  }
+  .method-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .method-marker {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bronze);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7pt;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .method-text {
+    font-size: 8pt;
+    line-height: 1.5;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .method-text strong {
+    color: var(--sepia);
+    font-weight: 600;
+  }
+  .footnote {
+    font-size: 6.5pt;
+    color: var(--bronze-light);
+    font-style: italic;
+    margin-top: 4px;
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+  }
+  .references {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: white;
+    border: 1px solid var(--rule);
+    font-size: 6.5pt;
+    color: var(--sepia-light);
+    font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+    line-height: 1.5;
+  }
+  .references strong {
+    color: var(--bronze);
+  }
+  .footer {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .footer-left {
+    font-style: italic;
+    font-size: 7.5pt;
+    color: var(--bronze-light);
+  }
+  .footer-right {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.1em;
+    color: var(--bronze);
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .lang-toggle { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="plate">
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="header">
+    <div class="series-label">Cognitive Visual Lab · Plate 07</div>
+    <h1 class="title">
+      <span data-lang="zh">元认知：大脑的仪表盘</span>
+      <span data-lang="en">Metacognition: The Brain's Dashboard</span>
+      <span class="title-en" data-lang="zh">Metacognition: The Brain's Dashboard</span>
+      <span class="title-en" data-lang="en">元认知：大脑的仪表盘</span>
+    </h1>
+    <p class="subtitle" data-lang="zh">关于思考的思考——知道自己知道什么、不知道什么，以及如何改进 · 可打印学习图版</p>
+    <p class="subtitle" data-lang="en">Thinking about thinking — knowing what you know, what you don't, and how to improve · Printable Plate</p>
+  </div>
+
+  <div class="main">
+    <div class="left-col">
+      <div class="section-header">
+        <span class="section-num">I.</span>
+        <span class="section-title" data-lang="zh">THE THERMOSTAT · 元认知回路</span>
+        <span class="section-title" data-lang="en">THE THERMOSTAT · The Metacognitive Loop</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 1</span>
+        <div class="thermostat-visual">
+          <div class="thermo-item">
+            <div class="thermo-box">
+              <span data-lang="zh">计划</span>
+              <span data-lang="en">Plan</span>
+            </div>
+            <span class="thermo-label" data-lang="zh">设定目标</span>
+            <span class="thermo-label" data-lang="en">Set Goal</span>
+          </div>
+          <div class="thermo-arrow">→</div>
+          <div class="thermo-item">
+            <div class="thermo-box">
+              <span data-lang="zh">监控</span>
+              <span data-lang="en">Monitor</span>
+            </div>
+            <span class="thermo-label" data-lang="zh">实时评估</span>
+            <span class="thermo-label" data-lang="en">Assess</span>
+          </div>
+          <div class="thermo-arrow">→</div>
+          <div class="thermo-item">
+            <div class="thermo-box highlight">
+              <span data-lang="zh">调节</span>
+              <span data-lang="en">Regulate</span>
+            </div>
+            <span class="thermo-label" data-lang="zh">调整策略</span>
+            <span class="thermo-label" data-lang="en">Adjust</span>
+          </div>
+          <div class="thermo-arrow">→</div>
+          <div class="thermo-item">
+            <div class="thermo-box">
+              <span data-lang="zh">评估</span>
+              <span data-lang="en">Evaluate</span>
+            </div>
+            <span class="thermo-label" data-lang="zh">复盘结果</span>
+            <span class="thermo-label" data-lang="en">Reflect</span>
+          </div>
+        </div>
+
+        <p style="margin-top: 8px; font-size: 7.5pt; color: var(--sepia-light); font-family: 'Helvetica Neue', 'PingFang SC', sans-serif; line-height: 1.5;" data-lang="zh">
+          <strong>核心洞察：</strong>元认知就像恒温器——它不断监测「理解温度」，当发现偏差时自动调节策略。低元认知学习者反复用同一种方法失败；高元认知学习者能迅速切换策略（从「重读」切换到「自测」）。
+        </p>
+        <p style="margin-top: 8px; font-size: 7.5pt; color: var(--sepia-light); font-family: 'Helvetica Neue', 'PingFang SC', sans-serif; line-height: 1.5;" data-lang="en">
+          <strong>Core insight:</strong> Metacognition is like a thermostat — it continuously monitors "comprehension temperature" and automatically adjusts strategy when deviation is detected. Low-metacognition learners repeat the same failing method; high-metacognition learners swiftly switch strategies (from "re-reading" to "self-testing").
+        </p>
+      </div>
+
+      <div class="section-header" style="margin-top: 6px;">
+        <span class="section-num">II.</span>
+        <span class="section-title" data-lang="zh">OBSERVATIONS · 观察</span>
+        <span class="section-title" data-lang="en">OBSERVATIONS · Observations</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 2</span>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 1</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>邓宁-克鲁格效应</strong>——能力最低的人往往最自信（Dunning et al., 2003）。因为元认知能力本身需要知识支撑：你越不懂，你越不知道自己不懂。这解释了为什么初学者总是低估学习难度。</span>
+            <span data-lang="en"><strong>The Dunning-Kruger Effect</strong> — The least competent are often the most confident (Dunning et al., 2003). Metacognitive ability itself requires knowledge: the less you know, the less you know you don't know. This explains why beginners consistently underestimate difficulty.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 2</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>解释深度的幻觉</strong>——大多数人以为自己理解自行车、拉链或锁的工作原理，直到被要求逐步解释（Rozenblit & Keil, 2002）。「熟悉」不等于「理解」——元认知的盲区就在于此。</span>
+            <span data-lang="en"><strong>Illusion of Explanatory Depth</strong> — Most believe they understand how bicycles, zippers, or locks work until asked to explain step-by-step (Rozenblit & Keil, 2002). "Familiarity" ≠ "understanding" — this is where metacognition fails.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 3</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>校准能力是学习的预测器</strong>——能准确预测自己考试表现的学生，成绩普遍更好（Dunlosky & Rawson, 2012）。校准偏差超过 20% 的学生，即使投入同样时间，成绩也显著更低。元认知精度比学习时间更重要。</span>
+            <span data-lang="en"><strong>Calibration predicts learning</strong> — Students who accurately predict exam performance score higher (Dunlosky & Rawson, 2012). Those with >20% calibration bias perform significantly worse even with equal study time. Metacognitive accuracy matters more than time spent.</span>
+          </div>
+        </div>
+
+        <div class="obs-item">
+          <span class="obs-num">Obs. 4</span>
+          <div class="obs-text">
+            <span data-lang="zh"><strong>元认知策略是专家与新手的分水岭</strong>——专家不仅知识更多，更重要的是他们更清楚自己何时理解、何时不理解。当专家遇到障碍时，他们会后退、重组、寻找替代路径；新手则继续死磕同一方法。</span>
+            <span data-lang="en"><strong>Metacognitive strategies separate experts from novices</strong> — Experts don't just have more knowledge; they know better when they do and don't understand. When blocked, experts step back, restructure, and seek alternative paths; novices persist with the same failing method.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-col">
+      <div class="section-header">
+        <span class="section-num">III.</span>
+        <span class="section-title" data-lang="zh">METHODS · 实践方法</span>
+        <span class="section-title" data-lang="en">METHODS · Practical Methods</span>
+      </div>
+
+      <div class="panel">
+        <span class="fig-label">Fig. 3</span>
+
+        <div class="method-item">
+          <div class="method-marker">1</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>学习前先做预测</strong>——翻开一章前，先问自己「我认为这一章有 3 个还是 8 个核心概念？」学习结束后对比实际数量。这个简单的「预测-验证」循环能显著提升元认知校准（Dunlosky et al., 2013）。</span>
+            <span data-lang="en"><strong>Predict before studying</strong> — Before opening a chapter, ask: "Do I think this has 3 or 8 core concepts?" Compare after reading. This simple "predict-verify" loop significantly improves metacognitive calibration (Dunlosky et al., 2013).</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">2</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>自我解释（Elaborative Interrogation）</strong>——每读完一段，问自己「为什么是这样？」「这和之前学过的什么有关？」「如果条件改变，结论会怎样？」自我解释让隐藏的理解漏洞浮出水面。</span>
+            <span data-lang="en"><strong>Self-explanation (Elaborative Interrogation)</strong> — After each paragraph, ask: "Why is this true?" "What does this connect to?" "What if conditions changed?" Self-explanation surfaces hidden gaps in understanding.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">3</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>错题分析，而非错题订正</strong>——做错题后，不要只看正确答案，而是分析：「我为什么错？」「我的思路卡在哪一步？」「这个错误属于概念不清还是粗心？」把错题变成元认知的训练数据。</span>
+            <span data-lang="en"><strong>Error analysis, not error correction</strong> — After mistakes, don't just check the right answer. Analyze: "Why did I err?" "Where did my reasoning break?" "Was this conceptual or careless?" Turn errors into metacognitive training data.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">4</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>出声思考（Think Aloud）</strong>——在解题时把脑中的想法说出来。这强迫你把模糊直觉变成明确语言，一旦发现语言卡壳，就说明理解有漏洞。这是认知科学中最有效的元认知训练方法之一。</span>
+            <span data-lang="en"><strong>Think aloud</strong> — Verbalize your thoughts while solving problems. This forces vague intuitions into explicit language; when words get stuck, understanding has gaps. One of cognitive science's most effective metacognitive training methods.</span>
+          </div>
+        </div>
+
+        <div class="method-item">
+          <div class="method-marker">5</div>
+          <div class="method-text">
+            <span data-lang="zh"><strong>每周学习复盘日记</strong>——每周用 10 分钟回答三个问题：「这周我学了什么？」「哪些方法有效/无效？」「下周我要调整什么？」这个简单的 retrospective 能让元认知能力在数月内显著提升。</span>
+            <span data-lang="en"><strong>Weekly learning journal</strong> — Spend 10 minutes weekly answering: "What did I learn?" "What worked/didn't?" "What will I adjust next week?" This simple retrospective significantly improves metacognitive ability within months.</span>
+          </div>
+        </div>
+
+        <p class="footnote" data-lang="zh">
+          * 元认知是认知科学中被低估的「超级能力」——它不像工作记忆那样受先天限制，而是可以通过训练持续提升的技能。研究表明，元认知训练的效果在 6 个月后依然显著（Hattie, 2009）。
+        </p>
+        <p class="footnote" data-lang="en">
+          * Metacognition is cognitive science's most underrated "superpower" — unlike working memory, it isn't constrained by innate limits but can be continuously improved through training. Effects remain significant after 6 months (Hattie, 2009).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="references">
+    <strong>📚 References</strong><br>
+    <span data-lang="zh">Flavell (1979). Metacognition and cognitive monitoring. <i>American Psychologist</i>, 34(10), 906-911. | Dunning et al. (2003). Why people fail to recognize their own incompetence. <i>Current Directions in Psychological Science</i>, 12(3), 83-87. | Rozenblit & Keil (2002). The misunderstood limits of folk science. <i>Cognitive Science</i>, 26(5), 521-562. | Dunlosky & Rawson (2012). Overconfidence produces underachievement. <i>Learning and Instruction</i>, 22(4), 271-280.</span>
+    <span data-lang="en">Flavell (1979). Metacognition and cognitive monitoring. <i>American Psychologist</i>, 34(10), 906-911. | Dunning et al. (2003). Why people fail to recognize their own incompetence. <i>Current Directions in Psychological Science</i>, 12(3), 83-87. | Rozenblit & Keil (2002). The misunderstood limits of folk science. <i>Cognitive Science</i>, 26(5), 521-562. | Dunlosky & Rawson (2012). Overconfidence produces underachievement. <i>Learning and Instruction</i>, 22(4), 271-280.</span>
+    <br><br>
+    <strong>📖 Related Books</strong><br>
+    <span data-lang="zh">《为什么学生不喜欢上学？》Daniel Willingham | 《认知天性》Brown, Roediger & McDaniel</span>
+    <span data-lang="en"><i>Why Don't Students Like School?</i> Daniel Willingham | <i>Make It Stick</i> Brown, Roediger & McDaniel</span>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">"The unexamined life is not worth living." — Socrates</div>
+    <div class="footer-right">COGNITIVE VISUAL LAB · 07</div>
+  </div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active',
+      (lang === 'zh' && btn.textContent === '中文') ||
+      (lang === 'en' && btn.textContent === 'EN')
+    );
+  });
+}
+</script>
+</body>
+</html>
