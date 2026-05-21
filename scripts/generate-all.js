@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 /**
  * Batch generate mobile assets for a product:
- * - mobile-cn.png (430px portrait, Chinese)
- * - mobile-en.png (430px portrait, English)
+ * - mobile-cn.png (from mobile.html, Chinese)
+ * - mobile-en.png (from mobile.html, English)
  */
 
-const { chromium } = require('playwright');
+const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
 async function generateProduct(productDir) {
-  const indexPath = path.join(productDir, 'index.html');
+  const mobilePath = path.join(productDir, 'mobile.html');
   const assetsDir = path.join(productDir, 'assets');
   
-  if (!fs.existsSync(indexPath)) {
-    console.error(`❌ index.html not found: ${indexPath}`);
+  if (!fs.existsSync(mobilePath)) {
+    console.error(`❌ mobile.html not found: ${mobilePath}`);
     return;
   }
   
@@ -22,78 +22,69 @@ async function generateProduct(productDir) {
     fs.mkdirSync(assetsDir, { recursive: true });
   }
 
-  const browser = await chromium.launch({ headless: true });
-  const fileUrl = 'file://' + path.resolve(indexPath);
+  const browser = await puppeteer.launch({ headless: 'new' });
+  const fileUrl = 'file://' + path.resolve(mobilePath);
 
   // Generate mobile-cn.png
   {
     const page = await browser.newPage();
-    await page.goto(fileUrl, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1000);
-    await page.setViewportSize({ width: 430, height: 932 });
-    await page.addStyleTag({
-      content: `
-        body { width: 430px !important; height: auto !important; min-height: 932px; overflow: visible !important; }
-        .plate { width: 430px !important; height: auto !important; min-height: 932px; padding: 24px 16px !important; }
-        .main { flex-direction: column !important; gap: 16px !important; }
-        .left-col, .right-col { flex: none !important; width: 100% !important; }
-        .lang-toggle { display: none !important; }
-        .juggler-visual .load-label { width: 60px !important; font-size: 7pt !important; }
-        .retrieval-visual { gap: 20px !important; }
-        .bar { width: 30px !important; }
-        .flow-channel { height: 100px !important; }
-      `
-    });
-    await page.waitForTimeout(500);
-    const height = await page.evaluate(() => document.body.scrollHeight);
-    await page.setViewportSize({ width: 430, height: Math.max(height, 932) });
+    await page.setViewport({ width: 430, height: 800, deviceScaleFactor: 2 });
+    await page.goto(fileUrl, { waitUntil: 'networkidle0' });
+    await new Promise(r => setTimeout(r, 500));
     const output = path.join(assetsDir, 'mobile-cn.png');
-    await page.screenshot({ path: output, fullPage: true, type: 'png' });
+    await page.screenshot({ path: output, fullPage: true });
     const stats = fs.statSync(output);
-    console.log(`  ✅ mobile-cn.png (${(stats.size/1024).toFixed(1)} KB, 430×${Math.max(height,932)})`);
+    console.log(`  ✅ mobile-cn.png (${(stats.size/1024).toFixed(1)} KB)`);
     await page.close();
   }
 
   // Generate mobile-en.png
   {
     const page = await browser.newPage();
-    await page.goto(fileUrl, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1000);
-    await page.evaluate(() => { document.body.classList.add('lang-en'); });
-    await page.setViewportSize({ width: 430, height: 932 });
-    await page.addStyleTag({
-      content: `
-        body { width: 430px !important; height: auto !important; min-height: 932px; overflow: visible !important; }
-        .plate { width: 430px !important; height: auto !important; min-height: 932px; padding: 24px 16px !important; }
-        .main { flex-direction: column !important; gap: 16px !important; }
-        .left-col, .right-col { flex: none !important; width: 100% !important; }
-        .lang-toggle { display: none !important; }
-        .juggler-visual .load-label { width: 60px !important; font-size: 7pt !important; }
-        .retrieval-visual { gap: 20px !important; }
-        .bar { width: 30px !important; }
-        .flow-channel { height: 100px !important; }
-      `
+    await page.setViewport({ width: 430, height: 800, deviceScaleFactor: 2 });
+    await page.goto(fileUrl, { waitUntil: 'networkidle0' });
+    await new Promise(r => setTimeout(r, 500));
+    
+    // Toggle English using multiple strategies
+    await page.evaluate(() => {
+      // Strategy 1: body.lang-en class (used by newer mobile.html)
+      document.body.classList.add('lang-en');
+      
+      // Strategy 2: .lang-cn.active / .lang-en.active (used by 01, 02 mobile.html)
+      document.querySelectorAll('.lang-cn.active').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.lang-en').forEach(el => el.classList.add('active'));
+      
+      // Strategy 3: Click EN button if present
+      const enBtn = document.querySelector('[data-lang-btn="en"], .lang-btn:last-child');
+      if (enBtn) enBtn.click();
     });
-    await page.waitForTimeout(500);
-    const height = await page.evaluate(() => document.body.scrollHeight);
-    await page.setViewportSize({ width: 430, height: Math.max(height, 932) });
+    
+    await new Promise(r => setTimeout(r, 300));
     const output = path.join(assetsDir, 'mobile-en.png');
-    await page.screenshot({ path: output, fullPage: true, type: 'png' });
+    await page.screenshot({ path: output, fullPage: true });
     const stats = fs.statSync(output);
-    console.log(`  ✅ mobile-en.png (${(stats.size/1024).toFixed(1)} KB, 430×${Math.max(height,932)})`);
+    console.log(`  ✅ mobile-en.png (${(stats.size/1024).toFixed(1)} KB)`);
     await page.close();
   }
 
   await browser.close();
-  console.log(`✅ All assets generated for ${path.basename(productDir)}\n`);
+  console.log(`✅ All mobile assets generated for ${path.basename(productDir)}\n`);
 }
 
 async function main() {
-  const products = ['04-cognitive-load', '05-flow', '06-retrieval-practice'];
+  const products = [
+    '01-working-memory',
+    '02-spaced-repetition', 
+    '03-chunking',
+    '04-cognitive-load',
+    '05-flow',
+    '06-retrieval-practice',
+    '07-metacognition'
+  ];
   
   for (const product of products) {
     const productDir = path.join(__dirname, '..', 'products', product);
-    console.log(`\n📦 Generating assets for ${product}...`);
+    console.log(`\n📦 Generating mobile assets for ${product}...`);
     await generateProduct(productDir);
   }
 }
